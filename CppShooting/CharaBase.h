@@ -6,7 +6,7 @@ protected:
 	float speed;	//‘¬“x
 	int image;		//‰æ‘œ
 public:
-	virtual void Update();
-	virtual void Draw()const;
-	virtual void Hit();
+	virtual void Update() = 0;
+	virtual void Draw()const = 0;
+	virtual void Hit() = 0;
 };

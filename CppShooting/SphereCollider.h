@@ -1,6 +1,6 @@
 #pragma once
 
-struct location
+struct Location
 {
     float x;    
     float y; 
@@ -9,7 +9,8 @@ struct location
 
 class SphereCollider
 {
-private:
+protected:
+    Location location;
 
 
 public:

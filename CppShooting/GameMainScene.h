@@ -1,11 +1,14 @@
 #pragma once
 #include "SceneBase.h"
+#include "PadInput.h"
+
+#include "Player.h"
 
 class GameMainScene :
     public SceneBase
 {
 private:
-
+    Player* player;
 
 public:
 

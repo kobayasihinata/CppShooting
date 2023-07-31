@@ -28,7 +28,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		scenebase = new SceneManager((SceneBase*)new Title());
+		scenebase = new SceneManager((SceneBase*)new GameMainScene());
 
 	}
 	catch (const char* err)
@@ -47,11 +47,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	}
 
 	// ゲームループ
-	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {
+	while ((ProcessMessage() == 0) && (scenebase->Update() != nullptr)) {
 
 		ClearDrawScreen();		// 画面の初期化
-		KEY_INPUT::UpdateKey();
-		sceneMng->Draw();
+		PAD_INPUT::UpdateKey();
+		scenebase->Draw();
 
 		//強制終了
 		if (CheckHitKey(KEY_INPUT_ESCAPE))
