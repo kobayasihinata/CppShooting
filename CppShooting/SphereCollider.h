@@ -14,8 +14,10 @@ protected:
 
 
 public:
-
     //“–‚½‚è”»’è
-    int CheckCollision();
+    bool CheckCollision(SphereCollider* s_collider);
+
+    //À•W‚Ìæ“¾
+    Location GetLocation();
 
 };

@@ -3,12 +3,14 @@
 #include "PadInput.h"
 
 #include "Player.h"
+#include "Enemy.h"
 
 class GameMainScene :
     public SceneBase
 {
 private:
     Player* player;
+    Enemy* enemy;
 
 public:
 
