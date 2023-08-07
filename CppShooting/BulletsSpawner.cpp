@@ -1,7 +1,7 @@
 #include"Dxlib.h"
 #include"BulletsSpawner.h"
 
-void BulletsSpawner::Shoot(GameMainScene* gamemain)
+void BulletsSpawner::Shoot(GameMainScene bspawner)
 {
-
+	bspawner.SpawnBullet();
 }

@@ -37,8 +37,7 @@ SceneBase* GameMainScene::Update()
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 	{
-		SpawnBullet();
-		BulletsSpawner::Shoot(GameMainScene*);
+		BulletsSpawner::Shoot(this);
 	}
 	HitCheck();
 
