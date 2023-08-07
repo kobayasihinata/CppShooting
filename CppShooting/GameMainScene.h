@@ -1,9 +1,12 @@
 #pragma once
 #include "SceneBase.h"
+#include "define.h"
 #include "PadInput.h"
 
 #include "Player.h"
 #include "Enemy.h"
+#include "Bullet.h"
+#include "BulletsSpawner.h"
 
 class GameMainScene :
     public SceneBase
@@ -11,6 +14,7 @@ class GameMainScene :
 private:
     Player* player;
     Enemy* enemy;
+    Bullet* bullet[MAX_BULLET];
 
 public:
 
