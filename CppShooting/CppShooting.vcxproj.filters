@@ -39,7 +39,7 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="BulletsSpawner.cpp">
+    <ClCompile Include="NwaySpawner.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

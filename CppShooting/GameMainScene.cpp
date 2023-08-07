@@ -37,7 +37,7 @@ SceneBase* GameMainScene::Update()
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 	{
-		BulletsSpawner::Shoot(this);
+		SpawnBullet(player->GetLocation().x, player->GetLocation().y, 10);
 	}
 	HitCheck();
 
@@ -68,13 +68,13 @@ void GameMainScene::HitCheck()
 
 }
 
-void GameMainScene::SpawnBullet()
+void GameMainScene::SpawnBullet(int x, int y, int radius)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		if (bullet[i] == NULL)
 		{
-			bullet[i] = new Bullet(10,i*50,10);
+			bullet[i] = new Bullet(x,y,radius);
 			break;
 		}
 	}

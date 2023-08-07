@@ -13,4 +13,5 @@ public:
 	void Update()override;
 	void Draw()const override;
 	void Hit()override;
+	Location GetLocation() { return location; }
 };

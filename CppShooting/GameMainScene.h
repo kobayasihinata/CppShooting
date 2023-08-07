@@ -6,7 +6,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
-#include "BulletsSpawner.h"
+#include "NwaySpawner.h"
 
 class GameMainScene :
     public SceneBase
@@ -34,7 +34,7 @@ public:
     void HitCheck();
 
     //弾の配列に新しくデータを作成する
-    void SpawnBullet();
+    void SpawnBullet(int x,int y,int radius);
 };
 
 
