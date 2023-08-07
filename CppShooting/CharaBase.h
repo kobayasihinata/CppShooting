@@ -1,6 +1,7 @@
 #pragma once
 
-class CharaBase
+class CharaBase:
+	public SphereCollider
 {
 protected:
 	float speed;	//‘¬“x

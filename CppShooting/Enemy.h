@@ -3,7 +3,7 @@
 #include"SphereCollider.h"
 
 class Enemy :
-	public CharaBase, public SphereCollider
+	public CharaBase
 {
 private:
 	int hp;

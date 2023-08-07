@@ -18,24 +18,7 @@ Enemy::~Enemy()
 }
 void Enemy::Update()
 {
-
-	//•Ç‚É‚Ô‚Â‚©‚é
-	if (location.x - location.radius < 0)
-	{
-		location.x = 0 + location.radius;
-	}
-	if (location.x + location.radius > SCREEN_WIDTH)
-	{
-		location.x = SCREEN_WIDTH - location.radius;
-	}
-	if (location.y - location.radius < 0)
-	{
-		location.y = 0 + location.radius;
-	}
-	if (location.y + location.radius > SCREEN_HEIGHT)
-	{
-		location.y = SCREEN_HEIGHT - location.radius;
-	}
+	location.x--;
 }
 
 void Enemy::Draw()const

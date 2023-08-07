@@ -3,7 +3,7 @@
 #include"SphereCollider.h"
 
 class Player :
-	public CharaBase, public SphereCollider
+	public CharaBase
 {
 private:
 	int score;
