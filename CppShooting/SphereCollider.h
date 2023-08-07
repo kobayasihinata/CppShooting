@@ -12,7 +12,6 @@ class SphereCollider
 protected:
     Location location;
 
-
 public:
     //“–‚½‚è”»’è
     bool CheckCollision(SphereCollider* s_collider);
