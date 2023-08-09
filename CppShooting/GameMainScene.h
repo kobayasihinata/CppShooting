@@ -1,9 +1,12 @@
 #pragma once
 #include "SceneBase.h"
+#include "define.h"
 #include "PadInput.h"
 
 #include "Player.h"
 #include "Enemy.h"
+#include "Bullet.h"
+#include "NwaySpawner.h"
 
 class GameMainScene :
     public SceneBase
@@ -11,6 +14,7 @@ class GameMainScene :
 private:
     Player* player;
     Enemy* enemy;
+    Bullet* bullet[MAX_BULLET];
 
 public:
 
@@ -30,7 +34,7 @@ public:
     void HitCheck();
 
     //弾の配列に新しくデータを作成する
-    void SpawnBullet();
+    void SpawnBullet(int x,int y,int radius);
 };
 
 
