@@ -18,7 +18,7 @@ Enemy::~Enemy()
 }
 void Enemy::Update()
 {
-	location.x--;
+
 }
 
 void Enemy::Draw()const
@@ -28,5 +28,6 @@ void Enemy::Draw()const
 
 void Enemy::Hit()
 {
-
+	location.x = GetRand(600)+300;
+	location.y = GetRand(600)+50;
 }

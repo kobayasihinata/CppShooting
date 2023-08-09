@@ -7,7 +7,7 @@ Bullet::Bullet(float x,float y,float radius)
 	location.y = y;
 	location.radius = radius;
 	damage = 0;
-	speed = 2;
+	speed = 5;
 	angle = 0;
 	acceleration = 0;
 	angulVelocity = 0;

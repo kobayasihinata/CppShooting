@@ -65,7 +65,17 @@ void GameMainScene::Draw()const
 
 void GameMainScene::HitCheck()
 {
-
+	for (int i = 0; i < MAX_BULLET; i++)
+	{
+		if (bullet[i] != NULL)
+		{
+			if (bullet[i]->CheckCollision(enemy) == true)
+			{
+				bullet[i] = NULL;
+				enemy->Hit();
+			}
+		}
+	}
 }
 
 void GameMainScene::SpawnBullet(int x, int y, int radius)
