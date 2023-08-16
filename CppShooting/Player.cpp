@@ -18,7 +18,7 @@ Player::~Player()
 {
 
 }
-void Player::Update()
+void Player::Update(GameMainScene* g_main)
 {
 	//ˆÚ“®
 	if (PAD_INPUT::GetLStick().ThumbY >= 5000 || PAD_INPUT::GetLStick().ThumbY <= -5000)
@@ -50,7 +50,7 @@ void Player::Update()
 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 	{
-		GameMainScene::SpawnBullet(location.x,location.y, 10, 0);
+		g_main->SpawnBullet(location.x,location.y, 10, 0);
 	}
 }
 

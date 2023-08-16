@@ -32,12 +32,12 @@ GameMainScene::~GameMainScene()
 
 SceneBase* GameMainScene::Update()
 {
-	player->Update();
+	player->Update(this);
 	for (int i = 0; i < MAX_ENEMY; i++)
 	{
 		if (enemy[i] != NULL)
 		{
-			enemy[i]->Update();
+			enemy[i]->Update(this);
 			if (enemy[i]->GetLocation().x < -50)
 			{
 				enemy[i] = NULL;

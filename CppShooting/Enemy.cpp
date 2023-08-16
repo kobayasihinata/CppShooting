@@ -19,12 +19,12 @@ Enemy::~Enemy()
 {
 
 }
-void Enemy::Update()
+void Enemy::Update(GameMainScene* g_main)
 {
 	location.x--;
 	if (--interbal < 0)
 	{
-		GameMainScene::SpawnBullet(location.x, location.y, 10, 1);
+		g_main->SpawnBullet(location.x, location.y, 10, 1);
 		interbal = GetRand(100)+50;
 	}
 }

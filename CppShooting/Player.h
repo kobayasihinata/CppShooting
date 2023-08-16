@@ -10,7 +10,7 @@ private:
 public:
 	Player();
 	~Player();
-	void Update()override;
+	void Update(GameMainScene* g_main)override;
 	void Draw()const override;
 	void Hit()override;
 	Location GetLocation() { return location; }
