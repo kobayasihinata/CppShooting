@@ -2,6 +2,7 @@
 #include"Define.h"
 #include"Player.h"
 #include"PadInput.h"
+#include"GameMainScene.h"
 
 #define PLAYER_MOVE_SPEED (15000-(speed*1000))
 
@@ -46,6 +47,11 @@ void Player::Update()
 	{
 		location.y = SCREEN_HEIGHT - location.radius;
 	}
+
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	{
+		GameMainScene::SpawnBullet(location.x,location.y, 10, 0);
+	}
 }
 
 void Player::Draw()const
@@ -55,5 +61,6 @@ void Player::Draw()const
 
 void Player::Hit()
 {
-
+	location.x = 100;
+	location.y = 100;
 }

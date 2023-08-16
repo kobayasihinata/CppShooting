@@ -1,19 +1,29 @@
 #include"GameMainScene.h"
 
+Bullet* bullet[MAX_BULLET];
+
 GameMainScene::GameMainScene()
 {
 	player = new Player();
-	enemy = new Enemy();
+	for (int i = 0; i < MAX_ENEMY; i++)
+	{
+		//enemy[i] = new Enemy(1500, GetRand(600) + 50);
+		enemy[i] = NULL;
+	}
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		bullet[i] = NULL;
 	}
+	enemy_spawn_int = 0;
 }
 
 GameMainScene::~GameMainScene()
 {
 	delete player;
-	delete enemy;
+	for (int i = 0; i < MAX_ENEMY; i++)
+	{
+		delete enemy[i];
+	}
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		delete bullet[i];
@@ -23,23 +33,42 @@ GameMainScene::~GameMainScene()
 SceneBase* GameMainScene::Update()
 {
 	player->Update();
-	enemy->Update();
+	for (int i = 0; i < MAX_ENEMY; i++)
+	{
+		if (enemy[i] != NULL)
+		{
+			enemy[i]->Update();
+			if (enemy[i]->GetLocation().x < -50)
+			{
+				enemy[i] = NULL;
+			}
+		}
+	}
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		if (bullet[i] != NULL)
 		{
 			bullet[i]->Update();
-			if (bullet[i]->GetLocation().x > SCREEN_WIDTH)
+			if (bullet[i]->GetLocation().x > SCREEN_WIDTH || bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().y < 0 || bullet[i]->GetLocation().y > SCREEN_HEIGHT)
 			{
 				bullet[i] = NULL;
 			}
 		}
 	}
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-	{
-		SpawnBullet(player->GetLocation().x, player->GetLocation().y, 10);
-	}
 	HitCheck();
+
+	if (++enemy_spawn_int>100)
+	{
+		for (int i = 0; i < MAX_ENEMY; i++)
+		{
+			if (enemy[i] == NULL)
+			{
+				enemy[i] = new Enemy(GetRand(100)+1200,GetRand(600)+50);
+				break;
+			}
+		}
+		enemy_spawn_int = 0;
+	}
 
 	return this;
 }
@@ -48,12 +77,18 @@ SceneBase* GameMainScene::Update()
 void GameMainScene::Draw()const
 {
 	DrawString(0, 0, "GameMain", 0xffff00);
-	if (player->CheckCollision(enemy) == true)
+	for (int i = 0; i < MAX_ENEMY; i++)
 	{
-		DrawString(0, 20, "hit", 0xffff00);
+		if (enemy[i] != NULL)
+		{
+			if (player->CheckCollision(enemy[i]) == true)
+			{
+				DrawString(0, 20, "hit", 0xffff00);
+			}
+			enemy[i]->Draw();
+		}
 	}
 	player->Draw();
-	enemy->Draw();
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		if (bullet[i] != NULL)
@@ -69,22 +104,50 @@ void GameMainScene::HitCheck()
 	{
 		if (bullet[i] != NULL)
 		{
-			if (bullet[i]->CheckCollision(enemy) == true)
+			for (int j = 0; j < MAX_ENEMY; j++)
+			{
+				if (enemy[j] != NULL)
+				{
+					//íeÇ∆ìGÇÃîªíË
+					if (bullet[i]->CheckCollision(enemy[j]) == true && bullet[i]->GetBulletType() == 0)
+					{
+						bullet[i] = NULL;
+						enemy[j] = NULL;
+						break;
+					}
+				}
+			}
+		}
+		//ÉvÉåÉCÉÑÅ[Ç∆íeÇÃîªíË
+		if (bullet[i] != NULL)
+		{
+			if (bullet[i]->CheckCollision(player) == true && bullet[i]->GetBulletType() == 1)
 			{
 				bullet[i] = NULL;
-				enemy->Hit();
+				player->Hit();
+			}
+		}
+	}
+	//ìGÇ∆ÉvÉåÉCÉÑÅ[ÇÃîªíË
+	for (int j = 0; j < MAX_ENEMY; j++)
+	{
+		if (enemy[j] != NULL)
+		{
+			if (enemy[j]->CheckCollision(player) == true)
+			{
+				player->Hit();
 			}
 		}
 	}
 }
 
-void GameMainScene::SpawnBullet(int x, int y, int radius)
+void GameMainScene::SpawnBullet(int x, int y, int radius,int type)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		if (bullet[i] == NULL)
 		{
-			bullet[i] = new Bullet(x,y,radius);
+			bullet[i] = new Bullet(x,y,radius,type);
 			break;
 		}
 	}

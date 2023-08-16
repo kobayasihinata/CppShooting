@@ -2,15 +2,18 @@
 #include"Define.h"
 #include"Enemy.h"
 #include"PadInput.h"
+#include"GameMainScene.h"
 
-Enemy::Enemy()
+Enemy::Enemy(int x, int y)
 {
 	hp = 2;
 	point = 100;
 	speed = 1;
-	location.x = 500;
-	location.y = 100;
+	location.x = x;
+	location.y = y;
 	location.radius = 25;
+
+	interbal = 0;
 }
 Enemy::~Enemy()
 {
@@ -18,7 +21,12 @@ Enemy::~Enemy()
 }
 void Enemy::Update()
 {
-
+	location.x--;
+	if (--interbal < 0)
+	{
+		GameMainScene::SpawnBullet(location.x, location.y, 10, 1);
+		interbal = GetRand(100)+50;
+	}
 }
 
 void Enemy::Draw()const

@@ -6,6 +6,7 @@ class Bullet:
 	public SphereCollider
 {
 private:
+	int b_type;				//誰が撃った弾か　0 = player  1 = enemy
 	int damage;				//与えるダメージ
 	float speed;			//速度
 	float angle;			//角度
@@ -15,7 +16,7 @@ private:
 public:
 
 	//コンストラクタ
-	Bullet(float x, float y, float radius);
+	Bullet(float x, float y, float radius,int type);
 
 	//デストラクタ
 	~Bullet();
@@ -31,6 +32,9 @@ public:
 
 	//座標を取得
 	Location GetLocation() { return location; }
+
+	//誰から出た弾か判断
+	int GetBulletType() { return b_type; }
 };
 
 

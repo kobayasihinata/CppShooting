@@ -1,6 +1,6 @@
 #pragma once
 #include "SceneBase.h"
-#include "define.h"
+#include "Define.h"
 #include "PadInput.h"
 
 #include "Player.h"
@@ -13,8 +13,9 @@ class GameMainScene :
 {
 private:
     Player* player;
-    Enemy* enemy;
-    Bullet* bullet[MAX_BULLET];
+    Enemy* enemy[MAX_ENEMY];
+
+    int enemy_spawn_int;    //敵出現間隔
 
 public:
 
@@ -34,7 +35,7 @@ public:
     void HitCheck();
 
     //弾の配列に新しくデータを作成する
-    void SpawnBullet(int x,int y,int radius);
+    static void SpawnBullet(int x,int y,int radius,int type);
 };
 
 
