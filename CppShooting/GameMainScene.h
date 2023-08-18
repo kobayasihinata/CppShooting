@@ -6,7 +6,6 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
-#include "NwaySpawner.h"
 
 class GameMainScene :
     public SceneBase
@@ -14,6 +13,7 @@ class GameMainScene :
 private:
     Player* player;
     Enemy* enemy[MAX_ENEMY];
+    Bullet* bullet[MAX_BULLET];
 
     int enemy_spawn_int;    //敵出現間隔
 
@@ -35,7 +35,7 @@ public:
     void HitCheck();
 
     //弾の配列に新しくデータを作成する
-    static void SpawnBullet(int x,int y,int radius,int type);
+    void SpawnBullet(int x,int y,int radius,int type);
 };
 
 

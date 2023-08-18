@@ -29,6 +29,22 @@ void Player::Update(GameMainScene* g_main)
 	{
 		location.x += PAD_INPUT::GetLStick().ThumbX / PLAYER_MOVE_SPEED;
 	}
+	if (CheckHitKey(KEY_INPUT_W))
+	{
+		location.y--;
+	}
+	if (CheckHitKey(KEY_INPUT_S))
+	{
+		location.y++;
+	}
+	if (CheckHitKey(KEY_INPUT_A))
+	{
+		location.x--;
+	}
+	if (CheckHitKey(KEY_INPUT_D))
+	{
+		location.x++;
+	}
 
 	//•Ç‚É‚Ô‚Â‚©‚é
 	if (location.x-location.radius < 0)

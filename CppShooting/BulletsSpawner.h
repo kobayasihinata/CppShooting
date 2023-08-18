@@ -1,6 +1,8 @@
 #pragma once
 #include"GameMainScene.h"
 
+class GameMainScene;
+
 class BulletsSpawner
 {
 private:
@@ -9,7 +11,7 @@ private:
 	float acceleration;		//‰Á‘¬“x
 	float angulVelocity;	//Šp“x‚Ì•Ï‰»—Ê
 public:
-	virtual void Shoot() = 0;
+	virtual void Shoot(GameMainScene* gm_scene) = 0;
 };
 
 

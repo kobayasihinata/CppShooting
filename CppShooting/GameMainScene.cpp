@@ -1,7 +1,5 @@
 #include"GameMainScene.h"
 
-Bullet* bullet[MAX_BULLET];
-
 GameMainScene::GameMainScene()
 {
 	player = new Player();

@@ -9,5 +9,5 @@ private:
 	float BaseAngle;	//”­Ë‚·‚éÅ‰‚Ì’e‚ÌŒü‚«
 	float AngleDiff;	//’e“¯m‚ÌŠp“x·
 public:
-	void Shoot()override;
+	void Shoot(GameMainScene* gm_scene)override;
 };
