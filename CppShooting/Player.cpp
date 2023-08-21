@@ -4,12 +4,14 @@
 #include"PadInput.h"
 #include"GameMainScene.h"
 
-#define PLAYER_MOVE_SPEED (15000-(speed*1000))
+#define PLAYER_MOVE_SPEED (15000-(c_speed*1000))
 
 Player::Player()
 {
+	b_spawner = new BulletsSpawner();
+
 	score = 0;
-	speed = 1;
+	c_speed = 1;
 	location.x = 100;
 	location.y = 100;
 	location.radius = 25;
@@ -64,9 +66,10 @@ void Player::Update(GameMainScene* g_main)
 		location.y = SCREEN_HEIGHT - location.radius;
 	}
 
+
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 	{
-		g_main->SpawnBullet(location.x,location.y, 10, 0);
+		weapon()->Shoot(g_main, location.x, location.y, 0);
 	}
 }
 

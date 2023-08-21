@@ -6,9 +6,10 @@
 
 Enemy::Enemy(int x, int y)
 {
+	b_spawner = new BulletsSpawner();
 	hp = 2;
 	point = 100;
-	speed = 1;
+	c_speed = 1;
 	location.x = x;
 	location.y = y;
 	location.radius = 25;
@@ -24,8 +25,8 @@ void Enemy::Update(GameMainScene* g_main)
 	location.x--;
 	if (--interbal < 0)
 	{
-		g_main->SpawnBullet(location.x, location.y, 10, 1);
-		interbal = GetRand(100)+50;
+		weapon()->Shoot(g_main, location.x, location.y, 1);
+		interbal = GetRand(200)+50;
 	}
 }
 

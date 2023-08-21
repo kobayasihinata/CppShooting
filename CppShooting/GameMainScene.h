@@ -7,6 +7,9 @@
 #include "Enemy.h"
 #include "Bullet.h"
 
+class Player;
+class Enemy;
+
 class GameMainScene :
     public SceneBase
 {

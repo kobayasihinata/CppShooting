@@ -47,7 +47,7 @@ SceneBase* GameMainScene::Update()
 		if (bullet[i] != NULL)
 		{
 			bullet[i]->Update();
-			if (bullet[i]->GetLocation().x > SCREEN_WIDTH || bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().y < 0 || bullet[i]->GetLocation().y > SCREEN_HEIGHT)
+			if (bullet[i]->GetLocation().x > SCREEN_WIDTH || bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().y < -100 || bullet[i]->GetLocation().y > SCREEN_HEIGHT+100)
 			{
 				bullet[i] = NULL;
 			}
@@ -79,10 +79,6 @@ void GameMainScene::Draw()const
 	{
 		if (enemy[i] != NULL)
 		{
-			if (player->CheckCollision(enemy[i]) == true)
-			{
-				DrawString(0, 20, "hit", 0xffff00);
-			}
 			enemy[i]->Draw();
 		}
 	}

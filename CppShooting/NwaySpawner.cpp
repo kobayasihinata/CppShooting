@@ -1,7 +1,7 @@
 #include"Dxlib.h"
 #include"NwaySpawner.h"
 
-void NwaySpawner::Shoot(GameMainScene* gm_scene)
-{
-	gm_scene->SpawnBullet(100, 100, 10, 0);
-}
+//void NwaySpawner::Shoot(GameMainScene* gm_scene, int x, int y, int type)
+//{
+//	gm_scene->SpawnBullet(x, y, 10, type);
+//}

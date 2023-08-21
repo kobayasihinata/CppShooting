@@ -11,7 +11,7 @@ private:
 	float acceleration;		//‰Á‘¬“x
 	float angulVelocity;	//Šp“x‚Ì•Ï‰»—Ê
 public:
-	virtual void Shoot(GameMainScene* gm_scene) = 0;
+	virtual void Shoot(GameMainScene* gm_scene, int x, int y, int type);
 };
 
 

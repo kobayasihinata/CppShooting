@@ -7,7 +7,7 @@ class CharaBase:
 	public SphereCollider
 {
 protected:
-	float speed;	//‘¬“x
+	float c_speed;	//‘¬“x
 	int image;		//‰æ‘œ
 public:
 	virtual void Update(GameMainScene* g_main) = 0;
