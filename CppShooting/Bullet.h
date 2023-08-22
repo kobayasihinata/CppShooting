@@ -16,10 +16,11 @@ private:
 	float angle_velocity;	//角度の変化量
 	int bend_time;			//曲がる弾用
 	float rad;				//角度計算用
+	float base_angle;		//最初のアングル
 
 public:
 
-	//コンストラクタ
+	//コンストラクタ（スポーンするX座標、Y座標、弾の半径、誰が打ち出したか、弾の移動角度）
 	Bullet(float x, float y, float radius,int who, float b_angle);
 
 	//デストラクタ

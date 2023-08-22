@@ -5,7 +5,7 @@
 
 #define SINGLE_SHOT 0			//弾の個数用
 #define TWIN_SHOT 1				//弾の個数用
-#define TRIPLE_SHOT 1			//弾の個数用
+#define TRIPLE_SHOT 2			//弾の個数用
 
 #define STRAIGHT_SHOT 0			//弾の種類用
 #define BEND_SHOT 1				//弾の種類用

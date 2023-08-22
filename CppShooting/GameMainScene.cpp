@@ -5,7 +5,6 @@ GameMainScene::GameMainScene()
 	player = new Player();
 	for (int i = 0; i < MAX_ENEMY; i++)
 	{
-		//enemy[i] = new Enemy(1500, GetRand(600) + 50);
 		enemy[i] = NULL;
 	}
 	for (int i = 0; i < MAX_BULLET; i++)
@@ -55,18 +54,18 @@ SceneBase* GameMainScene::Update()
 	}
 	HitCheck();
 
-	//if (++enemy_spawn_int>100)
-	//{
-	//	for (int i = 0; i < MAX_ENEMY; i++)
-	//	{
-	//		if (enemy[i] == NULL)
-	//		{
-	//			enemy[i] = new Enemy(GetRand(100)+1200,GetRand(600)+50);
-	//			break;
-	//		}
-	//	}
-	//	enemy_spawn_int = 0;
-	//}
+	if (++enemy_spawn_int>200)
+	{
+		for (int i = 0; i < MAX_ENEMY; i++)
+		{
+			if (enemy[i] == NULL)
+			{
+				enemy[i] = new Enemy(GetRand(100)+1200,GetRand(600)+50);
+				break;
+			}
+		}
+		enemy_spawn_int = 0;
+	}
 
 	return this;
 }
@@ -140,7 +139,7 @@ void GameMainScene::HitCheck()
 	}
 }
 
-void GameMainScene::SpawnBullet(int x, int y, int radius,int type, float angle)
+void GameMainScene::SpawnBullet(float x, float y, int radius,int type, float angle)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{

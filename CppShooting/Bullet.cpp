@@ -6,7 +6,7 @@
 Bullet::Bullet(float x,float y,float radius,int who, float b_angle)
 {
 	who_shot = who;
-	b_type = 1;
+	b_type = 0;
 	location.x = x;
 	location.y = y;
 	location.radius = radius;
@@ -17,6 +17,7 @@ Bullet::Bullet(float x,float y,float radius,int who, float b_angle)
 	angle_velocity = 0;
 	bend_time = 0;
 	rad = 0;
+	base_angle = b_angle;
 }
 Bullet::~Bullet()
 {
@@ -31,20 +32,20 @@ void Bullet::Update()
 	//’e‚ÌŽí—Þ‚É‚æ‚Á‚Ä“®‚«‚ð•Ï‚¦‚é
 	switch (b_type)
 	{
-	case SINGLE_SHOT:
+	case STRAIGHT_SHOT:
 		if (++acceleration > 200)
 		{
 			acceleration = 200;
 		}
 		rad = angle * (float)M_PI * 2;
 
-		location.x += (speed * cosf(rad)) + acceleration / 50;;
+		location.x += (speed * cosf(rad))/* + acceleration / 50*/;
 		location.y += (speed * sinf(rad));
 		break;
 	case BEND_SHOT:
 		if (++bend_time < 100)
 		{
-			if (angle < 1)
+			if (angle < base_angle)
 			{
 				angle += 0.004f;
 			}
@@ -55,7 +56,7 @@ void Bullet::Update()
 		}
 		else if (bend_time < 200)
 		{
-			if (angle > 1)
+			if (angle > base_angle)
 			{
 				angle -= 0.004f;
 			}
@@ -68,6 +69,7 @@ void Bullet::Update()
 		{
 			bend_time = 0;
 		}
+
 		rad = angle * (float)M_PI * 2;
 
 		location.x += (speed * cosf(rad));

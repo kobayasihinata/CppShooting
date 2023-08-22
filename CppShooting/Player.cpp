@@ -1,4 +1,7 @@
 #include"Dxlib.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #include"Define.h"
 #include"Player.h"
 #include"PadInput.h"
@@ -15,6 +18,10 @@ Player::Player()
 	location.x = 100;
 	location.y = 100;
 	location.radius = 25;
+
+	angle = 1;
+	power = 0;
+	bullet_size = 0;
 }
 Player::~Player()
 {
@@ -66,16 +73,48 @@ void Player::Update(GameMainScene* g_main)
 		location.y = SCREEN_HEIGHT - location.radius;
 	}
 
-
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	if (PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
 	{
-		weapon()->Shoot(g_main, location.x, location.y, PLAYER_SHOT,1,TWIN_SHOT);
+		weapon()->Shoot(g_main, location.x + 40 * cosf(angle * (float)M_PI * 2), location.y + 40 * sinf(angle * (float)M_PI * 2), bullet_size, PLAYER_SHOT, angle, TWIN_SHOT);
+	}
+	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
+	{
+		power += 0.1f;
+	}
+	else
+	{
+		power = 0;
+	}
+	if (power < 10)
+	{
+		bullet_size = 10;
+	}
+	else if (power < 20)
+	{
+		bullet_size = 20;
+	}
+	else if (power < 40)
+	{
+		bullet_size = 40;
+	}
+	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_LEFT_SHOULDER))
+	{
+		angle -= 0.001f;
+	}
+	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_RIGHT_SHOULDER))
+	{
+		angle += 0.001f;
 	}
 }
 
 void Player::Draw()const
 {
 	DrawCircle(location.x, location.y, location.radius, 0x00ff00, true);
+	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
+	{
+		DrawCircle(location.x + 40 * cosf(angle * (float)M_PI * 2), location.y + 40 * sinf(angle * (float)M_PI * 2), bullet_size, 0xffff00, true);
+	}
+	DrawLine(location.x, location.y, location.x + 100 * cosf(angle * (float)M_PI * 2), location.y + 100 * sinf(angle * (float)M_PI * 2),0x00ff00);
 }
 
 void Player::Hit()

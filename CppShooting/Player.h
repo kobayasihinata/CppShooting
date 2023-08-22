@@ -10,7 +10,11 @@ class Player :
 {
 private:
 	NwaySpawner* n_spawner;
-	int score;
+	int score;		//“_”
+	float angle;	//’e‚ÌŠp“x
+	float power;		//’e‚Ì‹­‚³
+	int bullet_size;	//’e‚Ì‘å‚«‚³
+
 public:
 	Player();
 	~Player();
