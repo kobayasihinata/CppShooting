@@ -38,7 +38,7 @@ public:
     void HitCheck();
 
     //弾の配列に新しくデータを作成する
-    void SpawnBullet(int x,int y,int radius,int type);
+    void SpawnBullet(int x,int y,int radius,int who, float angle);
 };
 
 

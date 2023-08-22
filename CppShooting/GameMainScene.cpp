@@ -55,18 +55,18 @@ SceneBase* GameMainScene::Update()
 	}
 	HitCheck();
 
-	if (++enemy_spawn_int>100)
-	{
-		for (int i = 0; i < MAX_ENEMY; i++)
-		{
-			if (enemy[i] == NULL)
-			{
-				enemy[i] = new Enemy(GetRand(100)+1200,GetRand(600)+50);
-				break;
-			}
-		}
-		enemy_spawn_int = 0;
-	}
+	//if (++enemy_spawn_int>100)
+	//{
+	//	for (int i = 0; i < MAX_ENEMY; i++)
+	//	{
+	//		if (enemy[i] == NULL)
+	//		{
+	//			enemy[i] = new Enemy(GetRand(100)+1200,GetRand(600)+50);
+	//			break;
+	//		}
+	//	}
+	//	enemy_spawn_int = 0;
+	//}
 
 	return this;
 }
@@ -74,6 +74,11 @@ SceneBase* GameMainScene::Update()
 
 void GameMainScene::Draw()const
 {
+	if (bullet[0] != NULL)
+	{
+		DrawFormatString(0, 20, 0xffffff, "angle:%f", bullet[0]->GetAngle());
+	}
+
 	DrawString(0, 0, "GameMain", 0xffff00);
 	for (int i = 0; i < MAX_ENEMY; i++)
 	{
@@ -103,7 +108,7 @@ void GameMainScene::HitCheck()
 				if (enemy[j] != NULL)
 				{
 					//’e‚Æ“G‚Ì”»’è
-					if (bullet[i]->CheckCollision(enemy[j]) == true && bullet[i]->GetBulletType() == 0)
+					if (bullet[i]->CheckCollision(enemy[j]) == true && bullet[i]->GetBulletType() == PLAYER_SHOT)
 					{
 						bullet[i] = NULL;
 						enemy[j] = NULL;
@@ -115,7 +120,7 @@ void GameMainScene::HitCheck()
 		//ƒvƒŒƒCƒ„[‚Æ’e‚Ì”»’è
 		if (bullet[i] != NULL)
 		{
-			if (bullet[i]->CheckCollision(player) == true && bullet[i]->GetBulletType() == 1)
+			if (bullet[i]->CheckCollision(player) == true && bullet[i]->GetBulletType() == ENEMY_SHOT)
 			{
 				bullet[i] = NULL;
 				player->Hit();
@@ -135,13 +140,13 @@ void GameMainScene::HitCheck()
 	}
 }
 
-void GameMainScene::SpawnBullet(int x, int y, int radius,int type)
+void GameMainScene::SpawnBullet(int x, int y, int radius,int type, float angle)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		if (bullet[i] == NULL)
 		{
-			bullet[i] = new Bullet(x,y,radius,type);
+			bullet[i] = new Bullet(x,y,radius,type,angle);
 			break;
 		}
 	}

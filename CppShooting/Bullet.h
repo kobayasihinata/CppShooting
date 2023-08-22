@@ -6,17 +6,21 @@ class Bullet:
 	public SphereCollider
 {
 private:
-	int b_type;				//誰が撃った弾か　0 = player  1 = enemy
+	int frame;				//フレーム計算用
+	int who_shot;			//誰が撃った弾か　1 = player  -1 = enemy
+	int b_type;				//弾の種類
 	int damage;				//与えるダメージ
 	float speed;			//速度
 	float angle;			//角度
 	float acceleration;		//加速度
-	float angulVelocity;	//角度の変化量
+	float angle_velocity;	//角度の変化量
+	int bend_time;			//曲がる弾用
+	float rad;				//角度計算用
 
 public:
 
 	//コンストラクタ
-	Bullet(float x, float y, float radius,int type);
+	Bullet(float x, float y, float radius,int who, float b_angle);
 
 	//デストラクタ
 	~Bullet();
@@ -34,7 +38,10 @@ public:
 	Location GetLocation() { return location; }
 
 	//誰から出た弾か判断
-	int GetBulletType() { return b_type; }
+	int GetBulletType() { return who_shot; }
+
+	//弾の角度を取得
+	float GetAngle() { return angle; }
 };
 
 

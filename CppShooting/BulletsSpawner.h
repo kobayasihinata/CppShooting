@@ -5,13 +5,13 @@ class GameMainScene;
 
 class BulletsSpawner
 {
-private:
+protected:
 	float speed;			//‘¬“x
 	float angle;			//Šp“x
 	float acceleration;		//‰Á‘¬“x
-	float angulVelocity;	//Šp“x‚Ì•Ï‰»—Ê
+	float angle_velocity;	//Šp“x‚Ì•Ï‰»—Ê
 public:
-	virtual void Shoot(GameMainScene* gm_scene, int x, int y, int type);
+	virtual void Shoot(GameMainScene* gm_scene, int x, int y, int who, float angle ,int b_type) = 0;
 };
 
 

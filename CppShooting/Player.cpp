@@ -8,7 +8,7 @@
 
 Player::Player()
 {
-	b_spawner = new BulletsSpawner();
+	n_spawner = new NwaySpawner();
 
 	score = 0;
 	c_speed = 1;
@@ -69,7 +69,7 @@ void Player::Update(GameMainScene* g_main)
 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 	{
-		weapon()->Shoot(g_main, location.x, location.y, 0);
+		weapon()->Shoot(g_main, location.x, location.y, PLAYER_SHOT,1,TWIN_SHOT);
 	}
 }
 

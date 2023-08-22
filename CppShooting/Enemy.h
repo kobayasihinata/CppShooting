@@ -1,15 +1,15 @@
 #pragma once
 #include"CharaBase.h"
 #include"SphereCollider.h"
-#include"BulletsSpawner.h"
+#include"NwaySpawner.h"
 
-class BulletsSpawner;
+class NwaySpawner;
 
 class Enemy :
 	public CharaBase
 {
 private:
-	BulletsSpawner* b_spawner;
+	NwaySpawner* n_spawner;
 	int hp;
 	int point;
 
@@ -21,6 +21,6 @@ public:
 	void Draw()const override;
 	void Hit()override;
 	Location GetLocation() { return location; }
-	BulletsSpawner* weapon() { return b_spawner; }
+	NwaySpawner* weapon() { return n_spawner; }
 };
 
