@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-Bullet::Bullet(float x,float y,float radius,int who, float b_angle)
+Bullet::Bullet(float x,float y,float radius,float speed, int who, float b_angle)
 {
 	who_shot = who;
 	b_type = 0;
@@ -11,7 +11,7 @@ Bullet::Bullet(float x,float y,float radius,int who, float b_angle)
 	location.y = y;
 	location.radius = radius;
 	damage = 0;
-	speed = 2;
+	b_speed = speed;
 	angle = b_angle;
 	acceleration = 0;
 	angle_velocity = 0;
@@ -26,21 +26,17 @@ Bullet::~Bullet()
 void Bullet::Update()
 {
 	frame++;  //時間測定
-
-	//誰が撃ったかによって方向を変える プレイヤーが１、エネミーがー１なので、X移動量にマクロをかけて動かす
-
 	//弾の種類によって動きを変える
 	switch (b_type)
 	{
 	case STRAIGHT_SHOT:
-		if (++acceleration > 200)
+		if (++acceleration > 100)
 		{
-			acceleration = 200;
+			acceleration = 100;
 		}
 		rad = angle * (float)M_PI * 2;
-
-		location.x += (speed * cosf(rad))/* + acceleration / 50*/;
-		location.y += (speed * sinf(rad));
+		location.x += ((b_speed + acceleration / 20) * cosf(rad));
+		location.y += ((b_speed + acceleration / 20) * sinf(rad));
 		break;
 	case BEND_SHOT:
 		if (++bend_time < 100)
@@ -72,8 +68,8 @@ void Bullet::Update()
 
 		rad = angle * (float)M_PI * 2;
 
-		location.x += (speed * cosf(rad));
-		location.y += (speed * sinf(rad));
+		location.x += (b_speed * cosf(rad));
+		location.y += (b_speed * sinf(rad));
 		break;
 	}
 }

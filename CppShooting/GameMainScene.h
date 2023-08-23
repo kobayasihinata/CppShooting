@@ -37,8 +37,8 @@ public:
     //弾/プレイヤー/敵の当たり判定のチェックを行う
     void HitCheck();
 
-    //弾の配列に新しくデータを作成する（スポーンするX座標、Y座標、弾の半径、誰が打ち出したか、弾の移動角度）
-    void SpawnBullet(float x, float y,int radius,int who, float angle);
+    //弾の配列に新しくデータを作成する（スポーンするX座標、Y座標、弾の半径、弾の速度、誰が打ち出したか、弾の移動角度）
+    void SpawnBullet(float x, float y,int radius, float speed, int who, float angle);
 };
 
 

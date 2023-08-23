@@ -25,7 +25,7 @@ void Enemy::Update(GameMainScene* g_main)
 	location.x -= 0.5f;
 	if (--interbal < 0)
 	{
-		weapon()->Shoot(g_main, location.x, location.y, 10,ENEMY_SHOT,0.5f,SINGLE_SHOT);
+		weapon()->Shoot(g_main, location.x, location.y, 10,1,ENEMY_SHOT,0.5f,SINGLE_SHOT);
 		interbal = GetRand(200)+50;
 	}
 }

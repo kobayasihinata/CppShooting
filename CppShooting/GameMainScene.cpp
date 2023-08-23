@@ -73,10 +73,10 @@ SceneBase* GameMainScene::Update()
 
 void GameMainScene::Draw()const
 {
-	if (bullet[0] != NULL)
-	{
-		DrawFormatString(0, 20, 0xffffff, "angle:%f", bullet[0]->GetAngle());
-	}
+	//if (bullet[0] != NULL)
+	//{
+	//	DrawFormatString(0, 20, 0xffffff, "angle:%f", bullet[0]->GetAngle());
+	//}
 
 	DrawString(0, 0, "GameMain", 0xffff00);
 	for (int i = 0; i < MAX_ENEMY; i++)
@@ -139,13 +139,13 @@ void GameMainScene::HitCheck()
 	}
 }
 
-void GameMainScene::SpawnBullet(float x, float y, int radius,int type, float angle)
+void GameMainScene::SpawnBullet(float x, float y, int radius, float speed, int type, float angle)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		if (bullet[i] == NULL)
 		{
-			bullet[i] = new Bullet(x,y,radius,type,angle);
+			bullet[i] = new Bullet(x,y,radius,speed,type,angle);
 			break;
 		}
 	}

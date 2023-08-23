@@ -4,6 +4,7 @@
 #include"PadInput.h"
 
 #include"GameMainScene.h"
+#include"WeaponPickScene.h"
 
 
 #define FRAMERATE 60.0 //フレームレート
@@ -28,7 +29,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		scenebase = new SceneManager((SceneBase*)new GameMainScene());
+		scenebase = new SceneManager((SceneBase*)new WeaponPickScene());
 
 	}
 	catch (const char* err)

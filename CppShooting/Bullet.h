@@ -10,7 +10,7 @@ private:
 	int who_shot;			//誰が撃った弾か　1 = player  -1 = enemy
 	int b_type;				//弾の種類
 	int damage;				//与えるダメージ
-	float speed;			//速度
+	float b_speed;			//速度
 	float angle;			//角度
 	float acceleration;		//加速度
 	float angle_velocity;	//角度の変化量
@@ -20,8 +20,8 @@ private:
 
 public:
 
-	//コンストラクタ（スポーンするX座標、Y座標、弾の半径、誰が打ち出したか、弾の移動角度）
-	Bullet(float x, float y, float radius,int who, float b_angle);
+	//コンストラクタ（スポーンするX座標、Y座標、弾の半径、弾の速度、誰が打ち出したか、弾の移動角度）
+	Bullet(float x, float y, float radius, float speed, int who, float b_angle);
 
 	//デストラクタ
 	~Bullet();
