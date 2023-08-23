@@ -22,7 +22,7 @@ Player::Player()
 	location.y = 100;
 	location.radius = 25;
 
-	weapon_type = 4;
+	weapon_type = 1;
 
 	switch (weapon_type)
 	{
@@ -217,13 +217,6 @@ void Player::Update(WeaponPickScene* w_pick)
 	{
 		location.y = SCREEN_HEIGHT - 200 - location.radius;
 	}
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
-	{
-		if (++weapon_type > 5)
-		{
-			weapon_type = 1;
-		}
-	}
 	switch (weapon_type)
 	{
 	case 1:
@@ -248,6 +241,7 @@ void Player::Update(WeaponPickScene* w_pick)
 	case 2:
 	case 3:
 		b_speed = 5;
+		angle = 1;
 		if (--shot_span <= 0 && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
 		{
 			shot_span = 40;
@@ -280,6 +274,7 @@ void Player::Update(WeaponPickScene* w_pick)
 	case 4:
 	case 5:
 		b_speed = 1;
+		angle = 1;
 		if (--shot_span <= 0 && PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
 		{
 			shot_span = 40;
@@ -299,7 +294,7 @@ void Player::Draw()const
 	{
 		DrawLine(location.x, location.y, location.x + (cosf((BaseAngle + (i * AngleDiff)) * (float)M_PI * 2) * 60), location.y + (sinf((BaseAngle + (i * AngleDiff)) * (float)M_PI * 2) * 60), 0x00ff00);
 	}
-	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
+	if (power > 0.1f)
 	{
 		DrawCircle(location.x, location.y, bullet_size, 0xffff00, true);
 	}

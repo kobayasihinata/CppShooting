@@ -13,9 +13,13 @@ class WeaponPickScene:
 {
 private:
 	Player* player;
-	Bullet* bullet[MAX_BULLET];
-	int pick_cursor;	//武器選択カーソルの位置
-	int now_current;		//選択中の武器
+	Bullet* bullet[MAX_BULLET];	
+	int pick_cursor;			//武器選択カーソルの位置
+	int now_current;			//選択中の武器
+	int move_span;				//カーソルを動かしすぎない用
+	bool try_flg;				//試射中か判段
+	
+	bool enter_flg;				//武器決定確認画面へ行くか判断
 public:
 	//コンストラクタ
 	WeaponPickScene();
