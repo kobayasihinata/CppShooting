@@ -1,10 +1,11 @@
 #include"WeaponPickScene.h"
+#include"GameMainScene.h"
 
 WeaponPickScene::WeaponPickScene()
 {
 	pick_cursor = 0;
 	now_current = 0;
-	player = new Player();
+	player = new Player(1);
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		bullet[i] = NULL;
@@ -93,7 +94,7 @@ SceneBase* WeaponPickScene::Update()
 	{
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
-			enter_flg = false;
+			return new GameMainScene(pick_cursor + 1);
 		}			
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
 		{
@@ -162,13 +163,13 @@ void WeaponPickScene::Draw()const
 		DrawBox(340, 240, 940, 480, 0xffffff, false);
 	}
 }
-void WeaponPickScene::SpawnBullet(float x, float y, int radius, float speed, int type, float angle)
+void WeaponPickScene::SpawnBullet(BulletData b_data)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		if (bullet[i] == NULL)
 		{
-			bullet[i] = new Bullet(x, y, radius, speed, type, angle);
+			bullet[i] = new Bullet(b_data);
 			break;
 		}
 	}

@@ -12,34 +12,33 @@
 #define PLAYER_FRONT_X(front)    (location.x + front * cosf(angle * (float)M_PI * 2))
 #define PLAYER_FRONT_Y(front)   (location.y + front * sinf(angle * (float)M_PI * 2))
 
-Player::Player()
+Player::Player(int w_type)
 {
 	n_spawner = new NwaySpawner();
 
 	score = 0;
-	c_speed = 1;
 	location.x = 100;
 	location.y = 100;
 	location.radius = 25;
 
-	weapon_type = 1;
-
+	weapon_type = w_type;
+	c_speed = weapon_type / 1.2f;
 	switch (weapon_type)
 	{
 	case 1:
 		b_speed = 10;
 		break;
 	case 2:
-		b_speed = 6;
+		b_speed = 1;
 		break;
 	case 3:
-		b_speed = 5;
+		b_speed = 1;
 		break;
 	case 4:
-		b_speed = 3;
+		b_speed = 1;
 		break;
 	case 5:
-		b_speed = 2;
+		b_speed = 1;
 		break;
 	}
 	angle = 1;
@@ -48,6 +47,8 @@ Player::Player()
 	AngleDiff = 0.05f;
 	BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
 	shot_span = 0;
+	player_color = GetPlayerColor(weapon_type);
+	h_count = 1;
 }
 Player::~Player()
 {
@@ -98,21 +99,16 @@ void Player::Update(GameMainScene* g_main)
 	{
 		location.y = SCREEN_HEIGHT - location.radius;
 	}
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
-	{
-		if (++weapon_type > 5)
-		{
-			weapon_type = 1;
-		}
-	}
+
+	//弾の発射
 	switch (weapon_type)
 	{
 	case 1:
-		b_speed = 10;
 		if (--shot_span <= 0 && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
-			shot_span = 40;
-			weapon()->Shoot(g_main, location.x, location.y, bullet_size, b_speed, PLAYER_SHOT, angle, weapon_type);
+			shot_span = 30;
+			h_count = 100;
+			weapon()->Shoot(g_main, UpdateBulletData());
 		}
 		//弾を撃つ角度変更
 		if (PAD_INPUT::OnPressed(XINPUT_BUTTON_LEFT_SHOULDER))
@@ -127,47 +123,86 @@ void Player::Update(GameMainScene* g_main)
 		BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
 		break;
 	case 2:
-	case 3:
-		b_speed = 5;
 		if (--shot_span <= 0 && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
 		{
 			shot_span = 40;
-			weapon()->Shoot(g_main, location.x, location.y, bullet_size, b_speed, PLAYER_SHOT, angle, weapon_type);
+			h_count = bullet_size / 10;
+			weapon()->Shoot(g_main, UpdateBulletData());
 		}
 		//チャージショット
 		if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
 		{
-			power += 0.1f;
+			power++;
 		}
 		else
 		{
 			power = 0;
+			b_speed = 1;
 		}
-		if (power < 10)
+		if (power < 100)
 		{
 			bullet_size = 10;
+			b_speed = 2;
 		}
-		else if (power < 20)
+		else if (power < 200)
 		{
 			bullet_size = 20;
+			b_speed = 3;
 		}
-		else if (power < 40)
+		else if (power < 400)
 		{
 			bullet_size = 40;
+			b_speed = 4;
 		}
-		AngleDiff = 0.05f;
-		BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
+		break;
+	case 3:
+		if (--shot_span <= 0 && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
+		{
+			shot_span = 40;
+			h_count = bullet_size / 10;
+			weapon()->Shoot(g_main, UpdateBulletData());
+		}
+		//チャージショット
+		if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
+		{
+			power++;
+		}
+		else
+		{
+			power = 0;
+			b_speed = 1;
+		}
+		if (power < 200)
+		{
+			bullet_size = 10;
+			b_speed = 2;
+		}
+		else if (power < 300)
+		{
+			bullet_size = 20;
+			b_speed = 3;
+		}
+		else if (power < 600)
+		{
+			bullet_size = 40;
+			b_speed = 5;
+		}
 		break;
 	case 4:
+		if (--shot_span <= 0 && PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
+		{
+			shot_span = 40;
+			h_count = 1;
+			weapon()->Shoot(g_main, UpdateBulletData());
+		}
+		break;
 	case 5:
-		b_speed = 1;
 		if (--shot_span <= 0 &&PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
 		{
 			shot_span = 40;
-			weapon()->Shoot(g_main, location.x, location.y, bullet_size, b_speed, PLAYER_SHOT, angle, weapon_type);
+			h_count = 1;
+			weapon()->Shoot(g_main, UpdateBulletData());
 		}
-		AngleDiff = 0.05f;
-		BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
 		break;
 	}
 }
@@ -205,26 +240,28 @@ void Player::Update(WeaponPickScene* w_pick)
 	{
 		location.x = 0 + location.radius;
 	}
-	if (location.x + location.radius > SCREEN_WIDTH-400)
+	if (location.x + location.radius > SCREEN_WIDTH)
 	{
-		location.x = SCREEN_WIDTH - 400 - location.radius;
+		location.x = SCREEN_WIDTH - location.radius;
 	}
 	if (location.y - location.radius < 0)
 	{
 		location.y = 0 + location.radius;
 	}
-	if (location.y + location.radius > SCREEN_HEIGHT-200)
+	if (location.y + location.radius > SCREEN_HEIGHT)
 	{
-		location.y = SCREEN_HEIGHT - 200 - location.radius;
+		location.y = SCREEN_HEIGHT - location.radius;
 	}
+
+	//弾の発射
 	switch (weapon_type)
 	{
 	case 1:
-		b_speed = 10;
 		if (--shot_span <= 0 && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
-			shot_span = 40;
-			weapon()->Shoot(w_pick, location.x, location.y, bullet_size, b_speed, PLAYER_SHOT, angle, weapon_type);
+			shot_span = 30;
+			h_count = 100;
+			weapon()->Shoot(w_pick, UpdateBulletData());
 		}
 		//弾を撃つ角度変更
 		if (PAD_INPUT::OnPressed(XINPUT_BUTTON_LEFT_SHOULDER))
@@ -239,49 +276,86 @@ void Player::Update(WeaponPickScene* w_pick)
 		BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
 		break;
 	case 2:
-	case 3:
-		b_speed = 5;
-		angle = 1;
 		if (--shot_span <= 0 && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
 		{
 			shot_span = 40;
-			weapon()->Shoot(w_pick, location.x, location.y, bullet_size, b_speed, PLAYER_SHOT, angle, weapon_type);
+			h_count = bullet_size / 10;
+			weapon()->Shoot(w_pick, UpdateBulletData());
 		}
 		//チャージショット
 		if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
 		{
-			power += 0.1f;
+			power++;
 		}
 		else
 		{
 			power = 0;
+			b_speed = 1;
 		}
-		if (power < 10)
+		if (power < 100)
 		{
 			bullet_size = 10;
+			b_speed = 2;
 		}
-		else if (power < 20)
+		else if (power < 200)
 		{
 			bullet_size = 20;
+			b_speed = 3;
 		}
-		else if (power < 40)
+		else if (power < 400)
 		{
 			bullet_size = 40;
+			b_speed = 4;
 		}
-		AngleDiff = 0.05f;
-		BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
+		break;
+	case 3:
+		if (--shot_span <= 0 && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
+		{
+			shot_span = 40;
+			h_count = bullet_size / 10;
+			weapon()->Shoot(w_pick, UpdateBulletData());
+		}
+		//チャージショット
+		if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
+		{
+			power++;
+		}
+		else
+		{
+			power = 0;
+			b_speed = 1;
+		}
+		if (power < 200)
+		{
+			bullet_size = 10;
+			b_speed = 2;
+		}
+		else if (power < 300)
+		{
+			bullet_size = 20;
+			b_speed = 3;
+		}
+		else if (power < 600)
+		{
+			bullet_size = 40;
+			b_speed = 5;
+		}
 		break;
 	case 4:
-	case 5:
-		b_speed = 1;
-		angle = 1;
 		if (--shot_span <= 0 && PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
 		{
 			shot_span = 40;
-			weapon()->Shoot(w_pick, location.x, location.y, bullet_size, b_speed, PLAYER_SHOT, angle, weapon_type);
+			h_count = 1;
+			weapon()->Shoot(w_pick, UpdateBulletData());
 		}
-		AngleDiff = 0.05f;
-		BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
+		break;
+	case 5:
+		if (--shot_span <= 0 && PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
+		{
+			shot_span = 40;
+			h_count = 1;
+			weapon()->Shoot(w_pick, UpdateBulletData());
+		}
 		break;
 	}
 }
@@ -289,14 +363,16 @@ void Player::Update(WeaponPickScene* w_pick)
 void Player::Draw()const
 {
 	DrawFormatString(0, 20, 0xffffff, "%d", weapon_type);
-	DrawCircle(location.x, location.y, location.radius, 0x00ff00, true);
+	DrawCircle(location.x, location.y, location.radius, player_color, true);
 	for (int i = 0; i < weapon_type; i++)
 	{
-		DrawLine(location.x, location.y, location.x + (cosf((BaseAngle + (i * AngleDiff)) * (float)M_PI * 2) * 60), location.y + (sinf((BaseAngle + (i * AngleDiff)) * (float)M_PI * 2) * 60), 0x00ff00);
+		DrawLine(location.x, location.y, location.x + (cosf((BaseAngle + (i * AngleDiff)) * (float)M_PI * 2) * 60), location.y + (sinf((BaseAngle + (i * AngleDiff)) * (float)M_PI * 2) * 60), player_color);
 	}
 	if (power > 0.1f)
 	{
-		DrawCircle(location.x, location.y, bullet_size, 0xffff00, true);
+		DrawCircle(location.x, location.y, 100 - (power % 100), player_color, false);
+		DrawCircle(location.x, location.y, bullet_size+1, 0x000000, true);
+		DrawCircle(location.x, location.y, bullet_size, player_color, true);
 	}
 
 }
@@ -305,4 +381,65 @@ void Player::Hit()
 {
 	location.x = 100;
 	location.y = 100;
+}
+
+void Player::SetWeaponType(int type)
+{
+	weapon_type = type;
+	c_speed = weapon_type / 1.2f;
+	player_color = GetPlayerColor(weapon_type);
+	angle = 1;
+	switch (weapon_type)
+	{
+	case 1:
+		b_speed = 10;
+		break;
+	case 2:
+		b_speed = 1;
+		break;
+	case 3:
+		b_speed = 1;
+		break;
+	case 4:
+		b_speed = 1;
+		break;
+	case 5:
+		b_speed = 1;
+		break;
+	}
+	angle = 1;
+	AngleDiff = 0.05f;
+	BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
+}
+int Player::GetPlayerColor(int type)
+{
+	switch (type)
+	{
+	case 1:
+		return GetColor(0, 100, 255);
+	case 2:
+		return GetColor(0, 255, 255);
+	case 3:
+		return GetColor(0, 255, 0);
+	case 4:
+		return GetColor(255, 255, 0);
+	case 5:
+		return GetColor(255, 125, 0);
+	default:
+		return 0;
+	}
+}
+
+BulletData Player::UpdateBulletData()
+{
+	BulletData b_data;
+	b_data.x = location.x;
+	b_data.y = location.y; 
+	b_data.radius = bullet_size;
+	b_data.speed = b_speed;
+	b_data.who = weapon_type;
+	b_data.b_angle = angle; 
+	b_data.b_type = weapon_type; 
+	b_data.h_count = h_count;
+	return b_data;
 }

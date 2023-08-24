@@ -3,21 +3,23 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-Bullet::Bullet(float x,float y,float radius,float speed, int who, float b_angle)
+Bullet::Bullet(BulletData b_data)
 {
-	who_shot = who;
+	who_shot = b_data.who;
 	b_type = 0;
-	location.x = x;
-	location.y = y;
-	location.radius = radius;
+	location.x = b_data.x;
+	location.y = b_data.y;
+	location.radius = b_data.radius;
 	damage = 0;
-	b_speed = speed;
-	angle = b_angle;
+	b_speed = b_data.speed;
+	angle = b_data.b_angle;
 	acceleration = 0;
 	angle_velocity = 0;
 	bend_time = 0;
 	rad = 0;
-	base_angle = b_angle;
+	base_angle = b_data.b_angle;
+	hit_count = b_data.h_count;
+	b_color = GetBulletColor(b_data.who);
 }
 Bullet::~Bullet()
 {
@@ -30,13 +32,13 @@ void Bullet::Update()
 	switch (b_type)
 	{
 	case STRAIGHT_SHOT:
-		if (++acceleration > 100)
+		if (++acceleration > 200)
 		{
-			acceleration = 100;
+			acceleration = 200;
 		}
 		rad = angle * (float)M_PI * 2;
-		location.x += ((b_speed + acceleration / 20) * cosf(rad));
-		location.y += ((b_speed + acceleration / 20) * sinf(rad));
+		location.x += ((b_speed + acceleration * 0.01) * cosf(rad));
+		location.y += ((b_speed + acceleration * 0.01) * sinf(rad));
 		break;
 	case BEND_SHOT:
 		if (++bend_time < 100)
@@ -76,15 +78,26 @@ void Bullet::Update()
 
 void Bullet::Draw()const
 {
-	switch (who_shot)
+	DrawCircle(location.x, location.y, location.radius, b_color, true);
+}
+
+int Bullet::GetBulletColor(int type)
+{
+	switch (type)
 	{
-	case PLAYER_SHOT:
-		DrawCircle(location.x, location.y, location.radius, 0xffff00, true);
-		break;
-	case ENEMY_SHOT:
-		DrawCircle(location.x, location.y, location.radius, 0xff0000, true);
-		break;
+	case 1:
+		return GetColor(0, 100, 255);
+	case 2:
+		return GetColor(0, 255, 255);
+	case 3:
+		return GetColor(0, 255, 0);
+	case 4:
+		return GetColor(255, 255, 0);
+	case 5:
+		return GetColor(255, 125, 0);
+	case 6:
+		return GetColor(255, 0, 0);
 	default:
-		break;
+		return 0;
 	}
 }

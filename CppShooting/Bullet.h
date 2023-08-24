@@ -17,11 +17,13 @@ private:
 	int bend_time;			//曲がる弾用
 	float rad;				//角度計算用
 	float base_angle;		//最初のアングル
+	int hit_count;			//敵を何体貫通するか
+	int b_color;			//弾の色
 
 public:
 
-	//コンストラクタ（スポーンするX座標、Y座標、弾の半径、弾の速度、誰が打ち出したか、弾の移動角度）
-	Bullet(float x, float y, float radius, float speed, int who, float b_angle);
+	//コンストラクタ（弾情報構造体）
+	Bullet(BulletData b_data);
 
 	//デストラクタ
 	~Bullet();
@@ -43,6 +45,12 @@ public:
 
 	//弾の角度を取得
 	float GetAngle() { return angle; }
+
+	//敵に当たった時に貫通するか判断
+	int GetHitCount() { return --hit_count; }
+
+	//弾の色選択
+	int GetBulletColor(int type);
 };
 
 

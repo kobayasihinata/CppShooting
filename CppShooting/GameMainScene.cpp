@@ -1,8 +1,9 @@
 #include"GameMainScene.h"
+#include"WeaponPickScene.h"
 
-GameMainScene::GameMainScene()
+GameMainScene::GameMainScene(int w_type)
 {
-	player = new Player();
+	player = new Player(w_type);
 	for (int i = 0; i < MAX_ENEMY; i++)
 	{
 		enemy[i] = NULL;
@@ -66,7 +67,11 @@ SceneBase* GameMainScene::Update()
 		}
 		enemy_spawn_int = 0;
 	}
-
+	//ŽÀŒ±—p
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+	{
+		return new WeaponPickScene();
+	}
 	return this;
 }
 
@@ -107,9 +112,12 @@ void GameMainScene::HitCheck()
 				if (enemy[j] != NULL)
 				{
 					//’e‚Æ“G‚Ì”»’è
-					if (bullet[i]->CheckCollision(enemy[j]) == true && bullet[i]->GetBulletType() == PLAYER_SHOT)
+					if (bullet[i]->CheckCollision(enemy[j]) == true && bullet[i]->GetBulletType() != ENEMY_SHOT)
 					{
-						bullet[i] = NULL;
+						if (bullet[i]->GetHitCount() <= 0)
+						{
+							bullet[i] = NULL;
+						}
 						enemy[j] = NULL;
 						break;
 					}
@@ -139,13 +147,13 @@ void GameMainScene::HitCheck()
 	}
 }
 
-void GameMainScene::SpawnBullet(float x, float y, int radius, float speed, int type, float angle)
+void GameMainScene::SpawnBullet(BulletData b_data)
 {
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		if (bullet[i] == NULL)
 		{
-			bullet[i] = new Bullet(x,y,radius,speed,type,angle);
+			bullet[i] = new Bullet(b_data);
 			break;
 		}
 	}

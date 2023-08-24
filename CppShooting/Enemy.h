@@ -14,6 +14,7 @@ private:
 	int point;
 
 	int interbal;	//’e”­ËŠÔŠu
+	float b_angle;	//’eŠp“x
 public:
 	Enemy(int x,int y);
 	~Enemy();
@@ -22,5 +23,7 @@ public:
 	void Hit()override;
 	Location GetLocation() { return location; }
 	NwaySpawner* weapon() { return n_spawner; }
+	//’e”­Ë—pƒf[ƒ^‚ğ‚Ü‚Æ‚ß‚Ä\‘¢‘Ì‚ğ•Ô‚·
+	BulletData UpdateBulletData();
 };
 

@@ -23,7 +23,7 @@ private:
 public:
 
     //コンストラクタ
-    GameMainScene();
+    GameMainScene(int w_type);
 
     //デストラクタ
     ~GameMainScene();
@@ -38,7 +38,7 @@ public:
     void HitCheck();
 
     //弾の配列に新しくデータを作成する（スポーンするX座標、Y座標、弾の半径、弾の速度、誰が打ち出したか、弾の移動角度）
-    void SpawnBullet(float x, float y,int radius, float speed, int who, float angle);
+    void SpawnBullet(BulletData b_data);
 };
 
 
