@@ -24,6 +24,7 @@ private:
 	int shot_span;		//弾の発射間隔
 	int player_color;	//プレイヤーの色
 	int h_count;		//弾が貫通出来る敵の数
+	int delete_time;	//弾を消すまでの時間
 
 public:
 	//コンストラクタ

@@ -27,24 +27,29 @@ Player::Player(int w_type)
 	{
 	case 1:
 		b_speed = 10;
+		delete_time = 100;
 		break;
 	case 2:
 		b_speed = 1;
+		delete_time = 6;
 		break;
 	case 3:
 		b_speed = 1;
+		delete_time = 5;
 		break;
 	case 4:
 		b_speed = 1;
+		delete_time = 4;
 		break;
 	case 5:
 		b_speed = 1;
+		delete_time = 3;
 		break;
 	}
 	angle = 1;
 	power = 0;
 	bullet_size = 10;
-	AngleDiff = 0.05f;
+	AngleDiff = 0.08f;
 	BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
 	shot_span = 0;
 	player_color = GetPlayerColor(weapon_type);
@@ -119,7 +124,7 @@ void Player::Update(GameMainScene* g_main)
 		{
 			angle += 0.001f;
 		}
-		AngleDiff = 0.05f;
+		AngleDiff = 0.08f;
 		BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
 		break;
 	case 2:
@@ -127,6 +132,7 @@ void Player::Update(GameMainScene* g_main)
 		{
 			shot_span = 40;
 			h_count = bullet_size / 10;
+			delete_time = 6 - h_count;
 			weapon()->Shoot(g_main, UpdateBulletData());
 		}
 		//チャージショット
@@ -158,8 +164,9 @@ void Player::Update(GameMainScene* g_main)
 	case 3:
 		if (--shot_span <= 0 && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
 		{
-			shot_span = 40;
+			shot_span = 60;
 			h_count = bullet_size / 10;
+			delete_time = 6-h_count;
 			weapon()->Shoot(g_main, UpdateBulletData());
 		}
 		//チャージショット
@@ -207,8 +214,7 @@ void Player::Update(GameMainScene* g_main)
 	}
 }
 
-void Player::Update(WeaponPickScene* w_pick)
-{
+void Player::Update(WeaponPickScene* w_pick) {
 	//移動
 	if (PAD_INPUT::GetLStick().ThumbY >= 5000 || PAD_INPUT::GetLStick().ThumbY <= -5000)
 	{
@@ -272,7 +278,7 @@ void Player::Update(WeaponPickScene* w_pick)
 		{
 			angle += 0.001f;
 		}
-		AngleDiff = 0.05f;
+		AngleDiff = 0.08f;
 		BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
 		break;
 	case 2:
@@ -280,6 +286,7 @@ void Player::Update(WeaponPickScene* w_pick)
 		{
 			shot_span = 40;
 			h_count = bullet_size / 10;
+			delete_time = 6 - h_count;
 			weapon()->Shoot(w_pick, UpdateBulletData());
 		}
 		//チャージショット
@@ -311,8 +318,9 @@ void Player::Update(WeaponPickScene* w_pick)
 	case 3:
 		if (--shot_span <= 0 && PAD_INPUT::OnRelease(XINPUT_BUTTON_A))
 		{
-			shot_span = 40;
+			shot_span = 60;
 			h_count = bullet_size / 10;
+			delete_time = 6 - h_count;
 			weapon()->Shoot(w_pick, UpdateBulletData());
 		}
 		//チャージショット
@@ -393,22 +401,27 @@ void Player::SetWeaponType(int type)
 	{
 	case 1:
 		b_speed = 10;
+		delete_time = 100;
 		break;
 	case 2:
 		b_speed = 1;
+		delete_time = 6;
 		break;
 	case 3:
 		b_speed = 1;
+		delete_time = 5;
 		break;
 	case 4:
 		b_speed = 1;
+		delete_time = 4;
 		break;
 	case 5:
 		b_speed = 1;
+		delete_time = 3;
 		break;
 	}
 	angle = 1;
-	AngleDiff = 0.05f;
+	AngleDiff = 0.08f;
 	BaseAngle = angle - ((AngleDiff * weapon_type) / 2) + AngleDiff / 2;
 }
 int Player::GetPlayerColor(int type)
@@ -439,7 +452,9 @@ BulletData Player::UpdateBulletData()
 	b_data.speed = b_speed;
 	b_data.who = weapon_type;
 	b_data.b_angle = angle; 
-	b_data.b_type = weapon_type; 
+	b_data.b_num = weapon_type; 
 	b_data.h_count = h_count;
+	b_data.delete_time = delete_time;
+	b_data.b_type = 0;
 	return b_data;
 }

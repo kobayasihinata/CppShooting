@@ -16,6 +16,8 @@ Enemy::Enemy(int x, int y)
 
 	interbal = 0;
 	b_angle = 0.5;
+	delete_time = 5;
+	b_type = GetRand(2);
 }
 Enemy::~Enemy()
 {
@@ -51,7 +53,9 @@ BulletData Enemy::UpdateBulletData()
 	b_data.speed = 1;
 	b_data.who = ENEMY_SHOT;
 	b_data.b_angle = b_angle;
-	b_data.b_type = SINGLE_SHOT;
+	b_data.b_num = SINGLE_SHOT;
 	b_data.h_count = 1;
+	b_data.delete_time = delete_time;
+	b_data.b_type = b_type;
 	return b_data;
 }

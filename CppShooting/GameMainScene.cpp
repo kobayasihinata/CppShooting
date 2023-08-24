@@ -46,8 +46,8 @@ SceneBase* GameMainScene::Update()
 	{
 		if (bullet[i] != NULL)
 		{
-			bullet[i]->Update();
-			if (bullet[i]->GetLocation().x > SCREEN_WIDTH || bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().y < -100 || bullet[i]->GetLocation().y > SCREEN_HEIGHT+100)
+			bullet[i]->Update(player->GetLocation().x,player->GetLocation().y);
+			if (bullet[i]->GetLocation().x > SCREEN_WIDTH || bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().y < -100 || bullet[i]->GetLocation().y > SCREEN_HEIGHT + 100 || bullet[i]->GetDeleteTime() <= 0)
 			{
 				bullet[i] = NULL;
 			}

@@ -19,6 +19,7 @@ private:
 	float base_angle;		//Å‰‚ÌƒAƒ“ƒOƒ‹
 	int hit_count;			//“G‚ğ‰½‘ÌŠÑ’Ê‚·‚é‚©
 	int b_color;			//’e‚ÌF
+	int delete_time;		//’e‚ğÁ‚·‚Ü‚Å‚ÌŠÔ
 
 public:
 
@@ -29,7 +30,7 @@ public:
 	~Bullet();
 
 	//•`‰æˆÈŠO‚ÌXV
-	void Update();
+	void Update(float player_x,float player_y);
 
 	//•`‰æ‚ÌXV
 	void Draw()const;
@@ -51,6 +52,9 @@ public:
 
 	//’e‚ÌF‘I‘ğ
 	int GetBulletColor(int type);
+
+	//’e‚ğÁ‚·ŠÔ‚©”»’f
+	int GetDeleteTime() { return delete_time; }
 };
 
 

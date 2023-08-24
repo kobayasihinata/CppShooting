@@ -15,6 +15,7 @@
 
 #define STRAIGHT_SHOT 0			//’e‚Ìí—Ş—p
 #define BEND_SHOT 1				//’e‚Ìí—Ş—p
+#define CHASING_SHOT 2				//’e‚Ìí—Ş—p
 
 #define SCREEN_WIDTH 1280		//‰æ–Ê‰¡•
 #define SCREEN_HEIGHT 720		//‰æ–Ê‚‚³
@@ -29,6 +30,8 @@ struct BulletData {
 	float speed;	//‘¬“x
 	int who;		//’N‚ª‘Å‚¿o‚µ‚½‚©
 	float b_angle;	//Šp“x
-	int b_type;		//’e‚ğ“¯‚É‰½”­Œ‚‚Â‚©
+	int b_num;		//’e‚ğ“¯‚É‰½”­Œ‚‚Â‚©
 	int h_count;	//ŠÑ’Êo—ˆ‚é“G‚Ì”
+	int delete_time;//’e‚ğÁ‚·‚Ü‚Å‚ÌŠÔ
+	int b_type;		//’e‚Ìí—Ş
 };

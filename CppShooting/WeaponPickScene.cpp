@@ -35,8 +35,8 @@ SceneBase* WeaponPickScene::Update()
 			{
 				if (bullet[i] != NULL)
 				{
-					bullet[i]->Update();
-					if (bullet[i]->GetLocation().x > SCREEN_WIDTH || bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().y < -100 || bullet[i]->GetLocation().y > SCREEN_HEIGHT + 100)
+					bullet[i]->Update(player->GetLocation().x, player->GetLocation().y);
+					if (bullet[i]->GetLocation().x > SCREEN_WIDTH || bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().y < -100 || bullet[i]->GetLocation().y > SCREEN_HEIGHT + 100 || bullet[i]->GetDeleteTime() <= 0)
 					{
 						bullet[i] = NULL;
 					}
@@ -119,6 +119,24 @@ void WeaponPickScene::Draw()const
 	DrawBox(880, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xffffff, false);
 	DrawBox(0, 520, SCREEN_WIDTH - 400, SCREEN_HEIGHT, 0x000000, true);
 	DrawBox(0, 520, SCREEN_WIDTH - 400, SCREEN_HEIGHT, 0xffffff, false);
+	switch (pick_cursor)
+	{
+	case 0:
+		DrawString(20, 530, "SINGLE_SHOT‚Ìà–¾", 0xffffff, true);
+		break;
+	case 1:
+		DrawString(20, 530, "DOUBLE SHOT‚Ìà–¾", 0xffffff, true);
+		break;
+	case 2:
+		DrawString(20, 530, "TRIPLE SHOT‚Ìà–¾", 0xffffff, true);
+		break;
+	case 3:
+		DrawString(20, 530, "QUAD SHOT‚Ìà–¾", 0xffffff, true);
+		break;
+	case 4:
+		DrawString(20, 530, "PENTA SHOT‚Ìà–¾", 0xffffff, true);
+		break;
+	}
 	SetFontSize(32);
 	for (int i = 0; i < 5; i++)
 	{
@@ -138,7 +156,7 @@ void WeaponPickScene::Draw()const
 			DrawString(970, 85 + (i * 120), "QUAD SHOT", 0xffffff);
 			break;
 		case 4:
-			DrawString(970, 85 + (i * 120), "FIVE SHOT", 0xffffff);
+			DrawString(970, 85 + (i * 120), "PENTA SHOT", 0xffffff);
 			break;
 		}
 	}
