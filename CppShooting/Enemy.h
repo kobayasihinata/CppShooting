@@ -15,7 +15,7 @@ private:
 
 	int interbal;	//’e”­ËŠÔŠu
 	float b_angle;	//’eŠp“x
-	int delete_time;	//’e‚ğÁ‚·‚Ü‚Å‚ÌŠÔ
+	int delete_time;//’e‚ğÁ‚·‚Ü‚Å‚ÌŠÔ
 	int b_type;		//’e‚Ìí—Ş
 public:
 	Enemy(int x,int y);
