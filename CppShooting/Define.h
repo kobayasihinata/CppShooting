@@ -20,7 +20,7 @@
 #define SCREEN_WIDTH 1280		//‰æ–Ê‰¡•
 #define SCREEN_HEIGHT 720		//‰æ–Ê‚‚³
 
-#define MAX_BULLET 100		//‰æ–Ê‚É‘¶İ‚Å‚«‚éÅ‘å‹…”
+#define MAX_BULLET 500		//‰æ–Ê‚É‘¶İ‚Å‚«‚éÅ‘å‹…”
 #define MAX_ENEMY  10		//‰æ–Ê‚É‘¶İ‚Å‚«‚éÅ‘å“G”
 
 struct BulletData {

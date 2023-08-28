@@ -10,7 +10,7 @@ Bullet::Bullet(BulletData b_data)
 	location.x = b_data.x;
 	location.y = b_data.y;
 	location.radius = b_data.radius;
-	damage = 0;
+	damage = b_data.radius/5;
 	b_speed = b_data.speed;
 	angle = b_data.b_angle;
 	acceleration = 0;

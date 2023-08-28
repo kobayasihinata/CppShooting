@@ -38,7 +38,7 @@ public:
 	//描画の更新
 	void Draw()const override;
 	//弾が当たった瞬間の処理
-	void Hit()override;
+	int Hit(int damage)override;
 	//プレイヤーの座標の取得
 	Location GetLocation() { return location; }
 	//NwaySpawner呼び出し用

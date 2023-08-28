@@ -13,19 +13,34 @@ private:
 	int hp;
 	int point;
 
-	int interbal;	//’e”­ËŠÔŠu
-	float b_angle;	//’eŠp“x
-	int delete_time;//’e‚ğÁ‚·‚Ü‚Å‚ÌŠÔ
-	int b_type;		//’e‚Ìí—Ş
+	int interbal;		//’e”­ËŠÔŠu
+	int boss_interbal;	//’e˜A‘±”­ËŠÔ
+	int shot_num;		//ˆê‰ñ‚Ì”­Ë‚Å‰½‰ñ’e‚ªo‚é‚©
+	float b_angle;		//’eŠp“x
+	int delete_time;	//’e‚ğÁ‚·‚Ü‚Å‚ÌŠÔ
+	int b_type;			//’e‚Ìí—Ş
+	int b_num;			//’e‚Ìí—Ş
+	bool boss_flg;		//ƒ{ƒX‚©‚Ç‚¤‚©
+	int boss_move;		//ƒ{ƒX‚Ìã‰ºˆÚ“®
+
+	int target_x;		//Œü‚©‚¤ˆÊ’u
+	int target_y;		//Œü‚©‚¤ˆÊ’u
+	float angle;		//“G‚ÌˆÚ“®•ûŒü
+	float rad;			//Šp“xŒvZ—p
+	float w;			//Šp“xŒvZ—p
+	float h;			//Šp“xŒvZ—p
+	int stop_time;		//’â~ŠÔ
 public:
-	Enemy(int x,int y);
+	Enemy(int x,int y,bool bossflg);
 	~Enemy();
 	void Update(GameMainScene* g_main)override;
 	void Draw()const override;
-	void Hit()override;
+	int Hit(int damage)override;
 	Location GetLocation() { return location; }
 	NwaySpawner* weapon() { return n_spawner; }
 	//’e”­Ë—pƒf[ƒ^‚ğ‚Ü‚Æ‚ß‚Ä\‘¢‘Ì‚ğ•Ô‚·
 	BulletData UpdateBulletData();
+	//’e”­Ë—pƒf[ƒ^‚ğ‚Ü‚Æ‚ß‚Ä\‘¢‘Ì‚ğ•Ô‚·iƒ{ƒX—p’ej
+	BulletData UpdateBossBulletData();
 };
 

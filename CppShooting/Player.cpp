@@ -59,8 +59,7 @@ Player::~Player()
 {
 
 }
-void Player::Update(GameMainScene* g_main)
-{
+void Player::Update(GameMainScene* g_main) {
 	//移動
 	if (PAD_INPUT::GetLStick().ThumbY >= 5000 || PAD_INPUT::GetLStick().ThumbY <= -5000)
 	{
@@ -88,7 +87,7 @@ void Player::Update(GameMainScene* g_main)
 	}
 
 	//壁にぶつかる
-	if (location.x-location.radius < 0)
+	if (location.x - location.radius < 0)
 	{
 		location.x = 0 + location.radius;
 	}
@@ -112,7 +111,7 @@ void Player::Update(GameMainScene* g_main)
 		if (--shot_span <= 0 && PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
 			shot_span = 30;
-			h_count = 100;
+			h_count = 5;
 			weapon()->Shoot(g_main, UpdateBulletData());
 		}
 		//弾を撃つ角度変更
@@ -166,7 +165,7 @@ void Player::Update(GameMainScene* g_main)
 		{
 			shot_span = 60;
 			h_count = bullet_size / 10;
-			delete_time = 6-h_count;
+			delete_time = 6 - h_count;
 			weapon()->Shoot(g_main, UpdateBulletData());
 		}
 		//チャージショット
@@ -199,15 +198,15 @@ void Player::Update(GameMainScene* g_main)
 		if (--shot_span <= 0 && PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
 		{
 			shot_span = 40;
-			h_count = 1;
+			h_count = 10;
 			weapon()->Shoot(g_main, UpdateBulletData());
 		}
 		break;
 	case 5:
-		if (--shot_span <= 0 &&PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
+		if (--shot_span <= 0 && PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
 		{
 			shot_span = 40;
-			h_count = 1;
+			h_count = 10;
 			weapon()->Shoot(g_main, UpdateBulletData());
 		}
 		break;
@@ -353,7 +352,7 @@ void Player::Update(WeaponPickScene* w_pick) {
 		if (--shot_span <= 0 && PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
 		{
 			shot_span = 40;
-			h_count = 1;
+			h_count = 10;
 			weapon()->Shoot(w_pick, UpdateBulletData());
 		}
 		break;
@@ -361,7 +360,7 @@ void Player::Update(WeaponPickScene* w_pick) {
 		if (--shot_span <= 0 && PAD_INPUT::OnPressed(XINPUT_BUTTON_A))
 		{
 			shot_span = 40;
-			h_count = 1;
+			h_count = 10;
 			weapon()->Shoot(w_pick, UpdateBulletData());
 		}
 		break;
@@ -385,10 +384,11 @@ void Player::Draw()const
 
 }
 
-void Player::Hit()
+int Player::Hit(int damage)
 {
 	location.x = 100;
 	location.y = 100;
+	return 0;
 }
 
 void Player::SetWeaponType(int type)

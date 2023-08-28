@@ -18,8 +18,9 @@ private:
     Enemy* enemy[MAX_ENEMY];
     Bullet* bullet[MAX_BULLET];
 
-    int enemy_spawn_int;    //敵出現間隔
-    int time;               //
+    int enemy_spawn_int;            //敵出現間隔
+    int enemy_countdown;            //敵があと何体スポーンするか
+    bool boss_flg;                  //ボスがスポーン中か
 public:
 
     //コンストラクタ

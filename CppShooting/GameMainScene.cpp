@@ -13,6 +13,8 @@ GameMainScene::GameMainScene(int w_type)
 		bullet[i] = NULL;
 	}
 	enemy_spawn_int = 0;
+	enemy_countdown = 20;
+	boss_flg = false;
 }
 
 GameMainScene::~GameMainScene()
@@ -47,7 +49,7 @@ SceneBase* GameMainScene::Update()
 		if (bullet[i] != NULL)
 		{
 			bullet[i]->Update(player->GetLocation().x,player->GetLocation().y);
-			if (bullet[i]->GetLocation().x > SCREEN_WIDTH || bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().y < -100 || bullet[i]->GetLocation().y > SCREEN_HEIGHT + 100 || bullet[i]->GetDeleteTime() <= 0)
+			if (bullet[i]->GetLocation().x > SCREEN_WIDTH+200 || bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().y < -100 || bullet[i]->GetLocation().y > SCREEN_HEIGHT + 100 || bullet[i]->GetDeleteTime() <= 0)
 			{
 				bullet[i] = NULL;
 			}
@@ -55,13 +57,25 @@ SceneBase* GameMainScene::Update()
 	}
 	HitCheck();
 
-	if (++enemy_spawn_int>200)
+	if (++enemy_spawn_int>300)
 	{
 		for (int i = 0; i < MAX_ENEMY; i++)
 		{
 			if (enemy[i] == NULL)
 			{
-				enemy[i] = new Enemy(GetRand(100)+1200,GetRand(600)+50);
+				if (enemy_countdown > 0)
+				{
+					enemy[i] = new Enemy(GetRand(100) + 1200, GetRand(600) + 50,false);
+					--enemy_countdown;
+				}
+				else
+				{
+					if (boss_flg == false)
+					{
+						enemy[i] = new Enemy(1800, 360, true);
+						boss_flg = true;
+					}
+				}
 				break;
 			}
 		}
@@ -82,7 +96,9 @@ void GameMainScene::Draw()const
 	//{
 	//	DrawFormatString(0, 20, 0xffffff, "angle:%f", bullet[0]->GetAngle());
 	//}
-
+	SetFontSize(32);
+	DrawFormatString(0, 20, 0xffffff, "écÇËìGêî:%d", enemy_countdown);
+	SetFontSize(16);
 	DrawString(0, 0, "GameMain", 0xffff00);
 	for (int i = 0; i < MAX_ENEMY; i++)
 	{
@@ -114,11 +130,14 @@ void GameMainScene::HitCheck()
 					//íeÇ∆ìGÇÃîªíË
 					if (bullet[i]->CheckCollision(enemy[j]) == true && bullet[i]->GetBulletType() != ENEMY_SHOT)
 					{
+						if (enemy[j]->Hit(bullet[i]->GetDamage()) <= 0)
+						{
+							enemy[j] = NULL;
+						}
 						if (bullet[i]->GetHitCount() <= 0)
 						{
 							bullet[i] = NULL;
 						}
-						enemy[j] = NULL;
 						break;
 					}
 				}
@@ -130,7 +149,7 @@ void GameMainScene::HitCheck()
 			if (bullet[i]->CheckCollision(player) == true && bullet[i]->GetBulletType() == ENEMY_SHOT)
 			{
 				bullet[i] = NULL;
-				player->Hit();
+				player->Hit(1);
 			}
 		}
 	}
@@ -141,7 +160,7 @@ void GameMainScene::HitCheck()
 		{
 			if (enemy[j]->CheckCollision(player) == true)
 			{
-				player->Hit();
+				player->Hit(1);
 			}
 		}
 	}
