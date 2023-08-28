@@ -57,29 +57,34 @@ SceneBase* GameMainScene::Update()
 	}
 	HitCheck();
 
-	if (++enemy_spawn_int>300)
+	if (--enemy_spawn_int <= 0)
 	{
+		enemy_spawn_int = 300;
 		for (int i = 0; i < MAX_ENEMY; i++)
 		{
 			if (enemy[i] == NULL)
 			{
 				if (enemy_countdown > 0)
 				{
-					enemy[i] = new Enemy(GetRand(100) + 1200, GetRand(600) + 50,false);
+					enemy[i] = new Enemy(GetRand(100) + 1200, GetRand(600) + 50,false,false);
 					--enemy_countdown;
 				}
 				else
 				{
 					if (boss_flg == false)
 					{
-						enemy[i] = new Enemy(1800, 360, true);
+						enemy[i] = new Enemy(1800, 360, true, false);
 						boss_flg = true;
+					}
+					else
+					{
+						enemy[i] = new Enemy(1800, 360, false, true);
+						enemy_spawn_int = 3000;
 					}
 				}
 				break;
 			}
 		}
-		enemy_spawn_int = 0;
 	}
 	//ŽÀŒ±—p
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))

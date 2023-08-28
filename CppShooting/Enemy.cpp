@@ -7,7 +7,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-Enemy::Enemy(int x, int y, bool bossflg)
+Enemy::Enemy(int x, int y, bool bossflg, bool f_flg)
 {
 	n_spawner = new NwaySpawner();
 	point = 100;
@@ -20,7 +20,14 @@ Enemy::Enemy(int x, int y, bool bossflg)
 	shot_num = 0;
 	b_angle = 0.5f;
 	delete_time = 5;
-	b_type = GetRand(3);
+	if (f_flg == false)
+	{
+		b_type = GetRand(2);
+	}
+	else
+	{
+		b_type = 3;
+	}
 	switch (b_type)
 	{
 	case 0:
@@ -50,11 +57,20 @@ Enemy::Enemy(int x, int y, bool bossflg)
 		shot_num = 5;
 		b_num = PENTA_SHOT;
 	}
+	if (f_flg == true)
+	{
+		location.radius = 15;
+		hp = 1;
+		b_num = DOUBLE_SHOT;
+	}
 	boss_move = 1;
 
 	target_x = x;
 	target_y = y;
 	angle = 0;
+	w = 0;
+	h = 0;
+	rad = 0;
 	stop_time = 0;
 }
 Enemy::~Enemy()
@@ -84,7 +100,7 @@ void Enemy::Update(GameMainScene* g_main)
 				if (--interbal < 0)
 				{
 					weapon()->Shoot(g_main, UpdateBulletData());
-					interbal = 30;
+					interbal = 50;
 				}
 				if (++stop_time > 150)
 				{

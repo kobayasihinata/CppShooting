@@ -169,6 +169,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
+    <ClCompile Include="Title.cpp" />
     <ClCompile Include="WeaponPickScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +185,7 @@
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SphereCollider.h" />
+    <ClInclude Include="Title.h" />
     <ClInclude Include="WeaponPickScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

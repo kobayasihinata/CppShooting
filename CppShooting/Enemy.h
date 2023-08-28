@@ -31,7 +31,7 @@ private:
 	float h;			//Šp“xŒvZ—p
 	int stop_time;		//’â~ŠÔ
 public:
-	Enemy(int x,int y,bool bossflg);
+	Enemy(int x, int y, bool bossflg, bool f_flg);
 	~Enemy();
 	void Update(GameMainScene* g_main)override;
 	void Draw()const override;
