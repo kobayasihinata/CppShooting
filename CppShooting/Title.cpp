@@ -18,15 +18,15 @@ Title::~Title()
 SceneBase* Title::Update()
 {
 	cursor_y = cursor_num * 35;
-	if (interval < 70) {
+	if (interval < 30) {
 		interval++;
 	}
 
-	if (PAD_INPUT::GetLStick().ThumbY > MARGIN && interval >= 70) {
+	if (PAD_INPUT::GetLStick().ThumbY > MARGIN && interval >= 30) {
 		cursor_num--;
 		interval = 0;
 	}
-	else if (PAD_INPUT::GetLStick().ThumbY < -MARGIN && interval >= 70) {
+	else if (PAD_INPUT::GetLStick().ThumbY < -MARGIN && interval >= 30) {
 		cursor_num++;
 		interval = 0;
 	}
@@ -34,7 +34,7 @@ SceneBase* Title::Update()
 	if (cursor_num < 0)cursor_num = 2;
 	if (cursor_num > 2)cursor_num = 0;
 
-	if (cursor_num == 0 && PAD_INPUT::OnButton(XINPUT_BUTTON_START))
+	if (/*cursor_num == 0 && */PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 	{
 		return new WeaponPickScene();
 	}

@@ -14,6 +14,9 @@ class GameMainScene :
     public SceneBase
 {
 private:
+
+    RankingData r_data;
+
     Player* player;
     Enemy* enemy[MAX_ENEMY];
     Bullet* bullet[MAX_BULLET];

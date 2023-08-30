@@ -1,8 +1,11 @@
 #include"GameMainScene.h"
 #include"WeaponPickScene.h"
+#include"Title.h"
 
 GameMainScene::GameMainScene(int w_type)
 {
+	r_data.score = 0;
+	r_data.time = 0;
 	player = new Player(w_type);
 	for (int i = 0; i < MAX_ENEMY; i++)
 	{
@@ -13,7 +16,7 @@ GameMainScene::GameMainScene(int w_type)
 		bullet[i] = NULL;
 	}
 	enemy_spawn_int = 0;
-	enemy_countdown = 20;
+	enemy_countdown = 0;
 	boss_flg = false;
 }
 
@@ -38,7 +41,7 @@ SceneBase* GameMainScene::Update()
 		if (enemy[i] != NULL)
 		{
 			enemy[i]->Update(this);
-			if (enemy[i]->GetLocation().x < -50)
+			if (enemy[i]->GetLocation().x < -50 || enemy[i]->GetLocation().y > SCREEN_HEIGHT + 100 || enemy[i]->GetLocation().y <-100)
 			{
 				enemy[i] = NULL;
 			}
@@ -48,7 +51,7 @@ SceneBase* GameMainScene::Update()
 	{
 		if (bullet[i] != NULL)
 		{
-			bullet[i]->Update(player->GetLocation().x,player->GetLocation().y);
+			bullet[i]->Update(player->GetLocation().x, player->GetLocation().y);
 			if (bullet[i]->GetLocation().x > SCREEN_WIDTH+200 || bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().y < -100 || bullet[i]->GetLocation().y > SCREEN_HEIGHT + 100 || bullet[i]->GetDeleteTime() <= 0)
 			{
 				bullet[i] = NULL;
@@ -59,7 +62,7 @@ SceneBase* GameMainScene::Update()
 
 	if (--enemy_spawn_int <= 0)
 	{
-		enemy_spawn_int = 300;
+		enemy_spawn_int = 75;
 		for (int i = 0; i < MAX_ENEMY; i++)
 		{
 			if (enemy[i] == NULL)
@@ -79,7 +82,7 @@ SceneBase* GameMainScene::Update()
 					else
 					{
 						enemy[i] = new Enemy(1800, 360, false, true);
-						enemy_spawn_int = 3000;
+						enemy_spawn_int = 750;
 					}
 				}
 				break;
@@ -137,6 +140,7 @@ void GameMainScene::HitCheck()
 					{
 						if (enemy[j]->Hit(bullet[i]->GetDamage()) <= 0)
 						{
+							player->AddScore(100);
 							enemy[j] = NULL;
 						}
 						if (bullet[i]->GetHitCount() <= 0)

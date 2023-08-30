@@ -37,71 +37,71 @@ void Bullet::Update(float player_x, float player_y)
 	switch (b_type)
 	{
 	case STRAIGHT_SHOT:
-		if (++acceleration > 200)
+		if (++acceleration > 50)
 		{
-			acceleration = 200;
+			acceleration = 50;
 		}
 		rad = angle * (float)M_PI * 2;
-		location.x += ((b_speed + acceleration * 0.01) * cosf(rad));
-		location.y += ((b_speed + acceleration * 0.01) * sinf(rad));
+		location.x += ((b_speed + acceleration * 0.08) * cosf(rad));
+		location.y += ((b_speed + acceleration * 0.08) * sinf(rad));
 		break;
 	case BEND_SHOT:
-		if (++bend_time < 100)
+		if (++bend_time < 25)
 		{
 			if (angle < base_angle)
 			{
-				angle += 0.004f;
+				angle += 0.016f;
 			}
 			else
 			{
-				angle += 0.002f;
+				angle += 0.008f;
 			}
 		}
-		else if (bend_time < 200)
+		else if (bend_time < 50)
 		{
 			if (angle > base_angle)
 			{
-				angle -= 0.004f;
+				angle -= 0.016f;
 			}
 			else
 			{
-				angle -= 0.002f;
+				angle -= 0.008f;
 			}
 		}
 		else
 		{
 			bend_time = 0;
 		}
-		if (++acceleration > 200)
+		if (++acceleration > 50)
 		{
-			acceleration = 200;
+			acceleration = 50;
 		}
 		rad = angle * (float)M_PI * 2;
-		location.x += ((b_speed + acceleration * 0.01) * cosf(rad));
-		location.y += ((b_speed + acceleration * 0.01) * sinf(rad));
+		location.x += ((b_speed + acceleration * 0.08) * cosf(rad));
+		location.y += ((b_speed + acceleration * 0.08) * sinf(rad));
 		break;
 	case CHASING_SHOT:
-		if (++acceleration > 200)
+		if (++acceleration > 50)
 		{
-			acceleration = 200;
+			acceleration = 50;
 		}
 		if (player_y - location.y > 20) 
 		{ 
 			if (angle > 0.35)
 			{
-				angle -= 0.001;
+				angle -= 0.002;
 			}
 		}
 		if (player_y - location.y < -20)
 		{
 			if (angle < 0.65)
 			{
-				angle += 0.001;
+				angle += 0.002;
 			}
 		}
 		rad = angle * (float)M_PI * 2;
-		location.x += ((b_speed + acceleration * 0.01) * cosf(rad));
-		location.y += ((b_speed + acceleration * 0.01) * sinf(rad));
+		location.x += ((b_speed + acceleration * 0.08) * cosf(rad));
+		location.y += ((b_speed + acceleration * 0.08) * sinf(rad));
 		break;
 	}
 }

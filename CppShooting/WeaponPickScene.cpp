@@ -65,7 +65,7 @@ SceneBase* WeaponPickScene::Update()
 			}
 			if (--move_span <= 0 && PAD_INPUT::GetLStick().ThumbY <= -5000)
 			{
-				move_span = 80;
+				move_span = 20;
 				if (++pick_cursor > 4)
 				{
 					pick_cursor = 0;
@@ -73,7 +73,7 @@ SceneBase* WeaponPickScene::Update()
 			}
 			if (--move_span <= 0 && PAD_INPUT::GetLStick().ThumbY >= 5000)
 			{
-				move_span = 80;
+				move_span = 20;
 				if (--pick_cursor < 0)
 				{
 					pick_cursor = 4;

@@ -161,6 +161,8 @@
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletsSpawner.cpp" />
+    <ClCompile Include="GameClear.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="NwaySpawner.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameMainScene.cpp" />
@@ -178,7 +180,9 @@
     <ClInclude Include="CharaBase.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameMainScene.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="NwaySpawner.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="Player.h" />

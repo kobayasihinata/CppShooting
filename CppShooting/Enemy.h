@@ -30,6 +30,8 @@ private:
 	float w;			//角度計算用
 	float h;			//角度計算用
 	int stop_time;		//停止時間
+	float spawn_y;		//スポーンした位置（Y座標）
+
 public:
 	Enemy(int x, int y, bool bossflg, bool f_flg);
 	~Enemy();
