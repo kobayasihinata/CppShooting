@@ -227,9 +227,14 @@ void Player::Update(GameMainScene* g_main)
 	{
 		if (++wait_time < 2)
 		{
-			weapon_type = 10;
+			weapon_type = 6;
 			delete_time = 1;
-			b_speed = 1;
+			b_speed = 80;
+			angle = 0.5f;
+			weapon()->Shoot(g_main, UpdateBulletData());
+			angle = 0.1f;
+			weapon()->Shoot(g_main, UpdateBulletData());			
+			angle = 0.9f;
 			weapon()->Shoot(g_main, UpdateBulletData());
 		}
 		if (wait_time > 60)

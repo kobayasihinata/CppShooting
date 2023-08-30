@@ -15,7 +15,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 {
 	double dNextTime = GetNowCount();
 
-	SetMainWindowText("BallonFight");
+	SetMainWindowText("C++Shooting");
 
 	ChangeWindowMode(TRUE);		// ウィンドウモードで起動
 
