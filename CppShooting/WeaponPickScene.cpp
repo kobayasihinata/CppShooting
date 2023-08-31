@@ -123,19 +123,27 @@ void WeaponPickScene::Draw()const
 	switch (pick_cursor)
 	{
 	case 0:
-		DrawString(20, 530, "SINGLE_SHOTの説明", 0xffffff, true);
+		DrawString(20, 530, "SINGLE_SHOT", 0xffffff, true);
+		DrawString(20, 550, "Aボタン：弾の発射（単発）", 0xffffff, true);
+		DrawString(20, 570, "LBボタン、RBボタン：弾の発射角度の調整", 0xffffff, true);
 		break;
 	case 1:
-		DrawString(20, 530, "DOUBLE SHOTの説明", 0xffffff, true);
+		DrawString(20, 530, "DOUBLE SHOT", 0xffffff, true);
+		DrawString(20, 550, "Aボタン：弾の発射（単発）", 0xffffff, true);
+		DrawString(20, 570, "Aボタン長押し：チャージ弾", 0xffffff, true);
 		break;
 	case 2:
-		DrawString(20, 530, "TRIPLE SHOTの説明", 0xffffff, true);
+		DrawString(20, 530, "TRIPLE SHOT", 0xffffff, true);
+		DrawString(20, 550, "Aボタン：弾の発射（単発）", 0xffffff, true);
+		DrawString(20, 570, "Aボタン長押し：チャージ弾", 0xffffff, true);
 		break;
 	case 3:
-		DrawString(20, 530, "QUAD SHOTの説明", 0xffffff, true);
+		DrawString(20, 530, "QUAD SHOT", 0xffffff, true);
+		DrawString(20, 550, "Aボタン：弾の発射（フルオート）", 0xffffff, true);
 		break;
 	case 4:
-		DrawString(20, 530, "PENTA SHOTの説明", 0xffffff, true);
+		DrawString(20, 530, "PENTA SHOT", 0xffffff, true);
+		DrawString(20, 550, "Aボタン：弾の発射（フルオート）", 0xffffff, true);
 		break;
 	}
 	SetFontSize(32);
@@ -172,6 +180,9 @@ void WeaponPickScene::Draw()const
 	}
 	else
 	{
+		SetFontSize(20);
+		DrawString(590, 480, "Bボタン:試し打ちをやめる", 0xffffff, true);
+		SetFontSize(16);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
 		DrawBox(881, 1, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, 0x000000, true);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
@@ -180,7 +191,13 @@ void WeaponPickScene::Draw()const
 	{
 		DrawBox(340, 240, 940, 480, 0x000000, true);
 		DrawBox(340, 240, 940, 480, 0xffffff, false);
+		SetFontSize(16);
+		DrawString(350, 250, "この武器で始めますか？", 0xffffff, true);
+		DrawString(350, 270, "Bボタン：戻る　Aボタン：開始", 0xffffff, true);
 	}
+	SetFontSize(20);
+	DrawString(890, 670, "Yボタン:試し打ち Aボタン:武器の確定", 0xffffff, true);
+	SetFontSize(16);
 }
 void WeaponPickScene::SpawnBullet(BulletData b_data)
 {

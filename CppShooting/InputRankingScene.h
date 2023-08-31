@@ -10,22 +10,22 @@ class InputRankingScene : public SceneBase
 private:
 	Ranking ranking;
 
-	int Img;	//背景画像格納用
-	int Score;	//スコア格納用
-	bool XOnce;	//Lスティック入力重複防止用（横）
-	bool YOnce;	//Lスティック入力重複防止用（縦）
+	int time;	//クリアタイム格納用
+	int score;	//スコア格納用
+	bool x_once;	//Lスティック入力重複防止用（横）
+	bool y_once;	//Lスティック入力重複防止用（縦）
 
-	std::string Name;	//名前入力用
+	std::string name;	//名前入力用
 
-	POINT CursorPoint;	//カーソルの座標用
+	POINT cursor_point;	//カーソルの座標用
 
 	//入力可能文字格納
-	const char KeyBoard[5][14] = { "ABCDEFGHIJKLM" ,"NOPQRSTUVWXYZ" ,"abcdefghijklm" ,"nopqrstuvwxyz" ,"0123456789" };
+	const char keyboard[5][14] = { "ABCDEFGHIJKLM" ,"NOPQRSTUVWXYZ" ,"abcdefghijklm" ,"nopqrstuvwxyz" ,"0123456789" };
 
 public:
 
 	//コンストラクタ
-	InputRankingScene(int score);
+	InputRankingScene(int score,int _time);
 
 	//デストラクタ
 	~InputRankingScene();

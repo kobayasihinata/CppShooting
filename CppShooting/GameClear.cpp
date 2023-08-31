@@ -3,11 +3,14 @@
 #include "GameClear.h"
 #include "Title.h"
 #include "InputRankingScene.h"
+#include "DrawRanking.h"
 
 GameClear::GameClear(int _score, int _time)
 {
+	count = 0;
 	score = _score;
 	time = _time;
+	Ranking::ReadRanking();
 }
 
 GameClear::~GameClear()
@@ -17,9 +20,16 @@ GameClear::~GameClear()
 
 SceneBase* GameClear::Update()
 {
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	if (++count >= 60 && PAD_INPUT::OnButton(XINPUT_BUTTON_A))	//countは連打などによる押しミス防止												
 	{
-		return new InputRankingScene(score);
+		if (score > Ranking::GetData(RANK - 1).score || (score == Ranking::GetData(RANK - 1).score && time < Ranking::GetData(RANK - 1).time))
+		{
+			return new InputRankingScene(score,time);
+		}
+		else
+		{
+			return new DrawRanking();//ボタンAが押されたらランキング、または名前入力画面に遷移
+		}
 	}
 	return this;
 }

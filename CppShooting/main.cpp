@@ -30,7 +30,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((SceneBase*)new InputRankingScene(1000));
+		sceneMng = new SceneManager((SceneBase*)new Title()/*InputRankingScene(1000, 100)*/);
 	}
 	catch (const char* err)
 	{

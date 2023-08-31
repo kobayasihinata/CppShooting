@@ -70,8 +70,8 @@ SceneBase* Title::Update()
 		s_interval = 20;
 	}
 
-	if (cursor_num < 0)cursor_num = 3;
-	if (cursor_num > 3)cursor_num = 0;
+	if (cursor_num < 0)cursor_num = 2;
+	if (cursor_num > 2)cursor_num = 0;
 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 	{
@@ -83,7 +83,7 @@ SceneBase* Title::Update()
 		case 1:
 			return new DrawRanking();
 			break;
-		case 3:
+		case 2:
 			return nullptr;
 			break;
 		}
@@ -105,8 +105,7 @@ void Title::Draw()const
 	DrawTriangle(430, 240 + cursor_y +abs(cursor_anim), 500, 280 + cursor_y, 430, 320 + cursor_y - abs(cursor_anim), 0xffffff, true);
 	DrawString(500, 250, "ゲーム開始", 0xffffff);
 	DrawString(500, 330, "ランキング", 0xffffff);
-	DrawString(500, 410, "ヘルプ",	   0xffffff);
-	DrawString(500, 490, "ゲーム終了", 0xffffff);
+	DrawString(500, 410, "ゲーム終了",0xffffff);
 	switch (cursor_num)
 	{
 	case 0:
@@ -118,12 +117,8 @@ void Title::Draw()const
 		DrawString(500, 330, "ランキング", 0x000000);
 		break;
 	case 2:
-		DrawBox(500, 410, 700, 480, 0xffffff, true);
-		DrawString(500, 410, "ヘルプ", 0x000000);
-		break;
-	case 3:
-		DrawBox(500, 490, 830, 570, 0xffffff, true);
-		DrawString(500, 490, "ゲーム終了", 0x000000);
+		DrawBox(500, 410, 830, 480, 0xffffff, true);
+		DrawString(500, 410, "ゲーム終了", 0x000000);
 		break;
 	}
 }

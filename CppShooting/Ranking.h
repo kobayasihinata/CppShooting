@@ -7,6 +7,7 @@ struct RankingData
 	int no;
 	char name[10];
 	int score;
+	int time;
 };
 
 class Ranking
@@ -24,7 +25,7 @@ private:
 public:
 
 	//ランキングデータの更新
-	static void Insert(int score, char name[NAME_MAX]);
+	static void Insert(int _score, int _time, char name[NAME_MAX]);
 
 	//ランキングデータ読み込み
 	static void ReadRanking();

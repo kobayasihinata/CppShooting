@@ -6,6 +6,7 @@
 
 GameMainScene::GameMainScene(int w_type)
 {
+	frame = 0;
 	time = 0;
 	player = new Player(w_type);
 	for (int i = 0; i < MAX_ENEMY; i++)
@@ -17,7 +18,7 @@ GameMainScene::GameMainScene(int w_type)
 		bullet[i] = NULL;
 	}
 	enemy_spawn_int = 0;
-	enemy_countdown = 0;
+	enemy_countdown = 15;
 	boss_flg = false;
 	clear_flg = false;
 	over_flg = false;
@@ -39,8 +40,15 @@ GameMainScene::~GameMainScene()
 
 SceneBase* GameMainScene::Update()
 {
-	//かかった時間の測定
-	time++;
+	//フレーム計測
+	frame++;
+	if (frame % 60 == 0)
+	{
+		if (++time > 3599)
+		{
+			time = 3599;
+		}
+	}
 	//プレイヤーの更新
 	player->Update(this);
 	//敵の更新
@@ -77,7 +85,7 @@ SceneBase* GameMainScene::Update()
 	//ゲームオーバー判定
 	if (over_flg == true)
 	{
-		return new GameOver();
+		return new GameOver(player->GetScore(), time);
 	}
 	//敵をスポーンさせる処理
 	if (--enemy_spawn_int <= 0)
@@ -117,24 +125,16 @@ SceneBase* GameMainScene::Update()
 			over_flg = true;
 		}
 	}
-	//実験用
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
-	{
-		return new WeaponPickScene();
-	}
 	return this;
 }
 
 
 void GameMainScene::Draw()const
 {
-	//if (bullet[0] != NULL)
-	//{
-	//	DrawFormatString(0, 20, 0xffffff, "angle:%f", bullet[0]->GetAngle());
-	//}
 	SetFontSize(32);
 	DrawFormatString(0, 20, 0xffffff, "残り敵数:%d", enemy_countdown);
 	DrawFormatString(0, 60, 0xffffff, "経過時間:%02d:%02d", time / 60, time % 60);
+	DrawFormatString(0, 100, 0xffffff, "score:%d", player->GetScore());
 	SetFontSize(16);
 	DrawString(0, 0, "GameMain", 0xffff00);
 	for (int i = 0; i < MAX_ENEMY; i++)
@@ -177,6 +177,7 @@ void GameMainScene::HitCheck()
 							else
 							{
 								player->AddScore(2000);
+								enemy[j] = NULL;
 								clear_flg = true;
 							}
 						}

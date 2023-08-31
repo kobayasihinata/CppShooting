@@ -19,6 +19,7 @@ private:
     Enemy* enemy[MAX_ENEMY];
     Bullet* bullet[MAX_BULLET];
 
+    int frame;                      //フレーム計測
     int time;                       //時間測定(何フレーム経ったか測っている)
     int enemy_spawn_int;            //敵出現間隔
     int enemy_countdown;            //敵があと何体スポーンするか

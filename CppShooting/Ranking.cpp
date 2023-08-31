@@ -11,12 +11,13 @@
 
 RankingData Ranking::Data[RANK];
 
-void Ranking::Insert(int score, char name[NAME_MAX])
+void Ranking::Insert(int _score, int _time, char name[NAME_MAX])
 {
 	ReadRanking();
-	if (Data[RANK - 1].score < score)
+	if (Data[RANK - 1].score < _score || (Data[RANK - 1].score == _score && Data[RANK - 1].time > _time))
 	{
-		Data[RANK - 1].score = score;
+		Data[RANK - 1].score = _score;
+		Data[RANK - 1].time = _time;
 		for (int i = 0; i < NAME_MAX; i++)
 		{
 			Data[RANK - 1].name[i] = name[i];
@@ -33,7 +34,12 @@ void Ranking::SortRanking()
 	// 選択法ソート
 	for (int i = 0; i < RANK - 1; i++) {
 		for (int j = i + 1; j < RANK; j++) {
-			if (Data[i].score <= Data[j].score) {
+			if (Data[i].score < Data[j].score) {
+				work = Data[i];
+				Data[i] = Data[j];
+				Data[j] = work;
+			}
+			if (Data[i].score == Data[j].score && Data[i].time > Data[j].time) {
 				work = Data[i];
 				Data[i] = Data[j];
 				Data[j] = work;
@@ -50,7 +56,7 @@ void Ranking::SortRanking()
 	// 同順位があった場合の次の順位はデータ個数が加算された順位とする
 	for (int i = 0; i < RANK - 1; i++) {
 		for (int j = i + 1; j < RANK; j++) {
-			if (Data[i].score > Data[j].score) {
+			if (Data[i].score > Data[j].score || (Data[i].score == Data[j].score && Data[i].time < Data[j].time)) {
 				Data[j].no++;
 			}
 		}
@@ -68,7 +74,7 @@ void Ranking::SaveRanking(void) {
 
 	//ランキングデータを書き込む
 	for (int i = 0; i < RANK; i++) {
-		fprintf_s(fp, "%1d%10d%10s\n", Data[i].no, Data[i].score, Data[i].name);
+		fprintf_s(fp, "%1d%10d%10d%10s\n", Data[i].no, Data[i].score, Data[i].time,Data[i].name);
 	}
 
 	fclose(fp);
@@ -85,7 +91,7 @@ void Ranking::ReadRanking(void) {
 
 	//ランキングデータ配分列データを読み込む
 	for (int i = 0; i < RANK; i++) {
-		fscanf_s(fp, "%1d%10d%10s", &Data[i].no, &Data[i].score, Data[i].name, NAME_MAX);
+		fscanf_s(fp, "%1d%10d%10d%10s", &Data[i].no, &Data[i].score, &Data[i].time, Data[i].name, NAME_MAX);
 	}
 
 	//ファイルクローズ

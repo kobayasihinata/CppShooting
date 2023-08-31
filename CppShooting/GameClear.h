@@ -6,6 +6,7 @@ class GameClear :
     public SceneBase
 {
 private:
+    int count;  //ƒ{ƒ^ƒ““ü—ÍŠÔŠu
     int score;  //“¾“_Ši”[
     int time;   //ŽžŠÔŠi”[
 public:
