@@ -68,4 +68,7 @@ public:
 
 	//スコアに加算する
 	void AddScore(int _score) { score += _score; }
+
+	//プレイヤーのHP取得
+	int GetHp() { return hp; }
 };

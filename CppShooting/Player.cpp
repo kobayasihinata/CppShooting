@@ -227,9 +227,9 @@ void Player::Update(GameMainScene* g_main)
 	{
 		if (++wait_time < 2)
 		{
-			weapon_type = 6;
+			weapon_type = 7;
 			delete_time = 1;
-			b_speed = 80;
+			b_speed = 10;
 			angle = 0.5f;
 			weapon()->Shoot(g_main, UpdateBulletData());
 			angle = 0.1f;
@@ -400,7 +400,7 @@ void Player::Update(WeaponPickScene* w_pick) {
 
 void Player::Draw()const
 {
-	DrawFormatString(0, 20, 0xffffff, "%d", score);
+	DrawFormatString(0, 20, 0xffffff, "score:%d", score);
 	if (hp > 0)
 	{
 		DrawCircle(location.x, location.y, location.radius, player_color, true);

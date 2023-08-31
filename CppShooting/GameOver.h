@@ -5,9 +5,7 @@ class GameOver :
     public SceneBase
 {
 private:
-    int cursor_y;
-    int cursor_num;
-    int interval;
+
 public:
 
     //コンストラクタ

@@ -6,13 +6,11 @@ class GameClear :
     public SceneBase
 {
 private:
-    int score;
-    int time;
-    int interval;
+
 public:
 
     //コンストラクタ
-    GameClear();
+    GameClear(int score,int time);
 
     //デストラクタ
     ~GameClear();

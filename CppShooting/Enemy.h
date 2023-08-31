@@ -44,5 +44,7 @@ public:
 	BulletData UpdateBulletData();
 	//弾発射用データをまとめて構造体を返す（ボス用弾）
 	BulletData UpdateBossBulletData();
+	//ボスか判断する
+	bool BossFlg() { return boss_flg; }
 };
 

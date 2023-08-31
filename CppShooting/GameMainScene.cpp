@@ -1,11 +1,12 @@
 #include"GameMainScene.h"
 #include"WeaponPickScene.h"
 #include"Title.h"
+#include"GameClear.h"
+#include"GameOver.h"
 
 GameMainScene::GameMainScene(int w_type)
 {
-	r_data.score = 0;
-	r_data.time = 0;
+	time = 0;
 	player = new Player(w_type);
 	for (int i = 0; i < MAX_ENEMY; i++)
 	{
@@ -18,6 +19,9 @@ GameMainScene::GameMainScene(int w_type)
 	enemy_spawn_int = 0;
 	enemy_countdown = 0;
 	boss_flg = false;
+	clear_flg = false;
+	over_flg = false;
+	wait_time = 0;
 }
 
 GameMainScene::~GameMainScene()
@@ -35,7 +39,11 @@ GameMainScene::~GameMainScene()
 
 SceneBase* GameMainScene::Update()
 {
+	//かかった時間の測定
+	time++;
+	//プレイヤーの更新
 	player->Update(this);
+	//敵の更新
 	for (int i = 0; i < MAX_ENEMY; i++)
 	{
 		if (enemy[i] != NULL)
@@ -47,6 +55,7 @@ SceneBase* GameMainScene::Update()
 			}
 		}
 	}
+	//弾の更新
 	for (int i = 0; i < MAX_BULLET; i++)
 	{
 		if (bullet[i] != NULL)
@@ -58,8 +67,19 @@ SceneBase* GameMainScene::Update()
 			}
 		}
 	}
+	//当たり判定
 	HitCheck();
-
+	//クリア判定
+	if (clear_flg == true)
+	{
+		return new GameClear(player->GetScore(),time);
+	}
+	//ゲームオーバー判定
+	if (over_flg == true)
+	{
+		return new GameOver();
+	}
+	//敵をスポーンさせる処理
 	if (--enemy_spawn_int <= 0)
 	{
 		enemy_spawn_int = 75;
@@ -89,6 +109,14 @@ SceneBase* GameMainScene::Update()
 			}
 		}
 	}
+	//プレイヤーの死亡演出
+	if (player->GetHp() <= 0)
+	{
+		if (++wait_time > 120)
+		{
+			over_flg = true;
+		}
+	}
 	//実験用
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
 	{
@@ -106,6 +134,7 @@ void GameMainScene::Draw()const
 	//}
 	SetFontSize(32);
 	DrawFormatString(0, 20, 0xffffff, "残り敵数:%d", enemy_countdown);
+	DrawFormatString(0, 60, 0xffffff, "経過時間:%02d:%02d", time / 60, time % 60);
 	SetFontSize(16);
 	DrawString(0, 0, "GameMain", 0xffff00);
 	for (int i = 0; i < MAX_ENEMY; i++)
@@ -140,8 +169,16 @@ void GameMainScene::HitCheck()
 					{
 						if (enemy[j]->Hit(bullet[i]->GetDamage()) <= 0)
 						{
-							player->AddScore(100);
-							enemy[j] = NULL;
+							if (enemy[j]->BossFlg() == false)
+							{
+								player->AddScore(100);
+								enemy[j] = NULL;
+							}
+							else
+							{
+								player->AddScore(2000);
+								clear_flg = true;
+							}
 						}
 						if (bullet[i]->GetHitCount() <= 0)
 						{
@@ -155,7 +192,7 @@ void GameMainScene::HitCheck()
 		//プレイヤーと弾の判定
 		if (bullet[i] != NULL)
 		{
-			if (bullet[i]->CheckCollision(player) == true && bullet[i]->GetBulletType() == ENEMY_SHOT)
+			if (bullet[i]->CheckCollision(player) == true && bullet[i]->GetBulletType() == ENEMY_SHOT && player->GetHp() > 0)
 			{
 				bullet[i] = NULL;
 				player->Hit(1);

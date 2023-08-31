@@ -127,6 +127,8 @@ int Bullet::GetBulletColor(int type)
 		return GetColor(255, 125, 0);
 	case 6:
 		return GetColor(255, 0, 0);
+	case 7:
+		return GetColor(255, 255, 255);
 	default:
 		return 0;
 	}

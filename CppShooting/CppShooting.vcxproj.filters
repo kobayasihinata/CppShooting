@@ -42,9 +42,6 @@
     <ClCompile Include="NwaySpawner.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="BulletsSpawner.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="WeaponPickScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>

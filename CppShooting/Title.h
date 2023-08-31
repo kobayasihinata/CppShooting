@@ -2,16 +2,18 @@
 #include "SceneBase.h"
 #include "GameMainScene.h"
 
-#define TITLEMODESELECT_X 165
-#define TITLEMODESELECT_Y 270
+#define TITLEMODESELECT_X 780
+#define TITLEMODESELECT_Y 300
 
 class Title :
     public SceneBase
 {
 private:
-    int cursor_y;
-    int cursor_num;
-    int interval;
+    int cursor_y;   //カーソルのY座標
+    int cursor_num; //カーソルの番号
+    int s_interval; //スティックの入力間隔
+    int b_interval; //ボタンの入力間隔
+    int cursor_anim;//カーソルのアニメーション用
 public:
 
     //コンストラクタ

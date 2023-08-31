@@ -119,6 +119,7 @@ void WeaponPickScene::Draw()const
 	DrawBox(880, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xffffff, false);
 	DrawBox(0, 520, SCREEN_WIDTH - 400, SCREEN_HEIGHT, 0x000000, true);
 	DrawBox(0, 520, SCREEN_WIDTH - 400, SCREEN_HEIGHT, 0xffffff, false);
+	SetFontSize(16);
 	switch (pick_cursor)
 	{
 	case 0:

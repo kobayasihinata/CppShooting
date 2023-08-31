@@ -36,8 +36,3 @@ struct BulletData {
 	int b_type;		//弾の種類
 };
 
-struct RankingData {
-	int score;		//得点
-	int time;		//クリア時間
-	char name;		//名前
-};
