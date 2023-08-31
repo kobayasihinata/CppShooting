@@ -82,6 +82,7 @@ SceneBase* Title::Update()
 			break;
 		case 1:
 			return new DrawRanking();
+			break;
 		case 3:
 			return nullptr;
 			break;

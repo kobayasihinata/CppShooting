@@ -1,5 +1,5 @@
 1      4100    AAAAAA
 2      2100   BCDEFGH
+3      1000 wwwwwwwww
 3      1000         9
-4         7         A
-4         7   Atvwxyy
+5         7         A
