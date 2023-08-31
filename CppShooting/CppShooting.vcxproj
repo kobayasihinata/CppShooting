@@ -160,14 +160,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="DrawRanking.cpp" />
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="InputRankingScene.cpp" />
     <ClCompile Include="NwaySpawner.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameMainScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -178,13 +181,16 @@
     <ClInclude Include="BulletsSpawner.h" />
     <ClInclude Include="CharaBase.h" />
     <ClInclude Include="Define.h" />
+    <ClInclude Include="DrawRanking.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="GameMainScene.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="InputRankingScene.h" />
     <ClInclude Include="NwaySpawner.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Ranking.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SphereCollider.h" />

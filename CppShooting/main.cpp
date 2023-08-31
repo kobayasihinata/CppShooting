@@ -4,6 +4,7 @@
 #include"PadInput.h"
 #include"Title.h"
 #include"Define.h"
+#include "InputRankingScene.h"
 
 #define FRAMERATE 60.0 //フレームレート
 
@@ -29,7 +30,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((SceneBase*)new Title());
+		sceneMng = new SceneManager((SceneBase*)new InputRankingScene(1000));
 	}
 	catch (const char* err)
 	{

@@ -6,11 +6,12 @@ class GameClear :
     public SceneBase
 {
 private:
-
+    int score;  //得点格納
+    int time;   //時間格納
 public:
 
     //コンストラクタ
-    GameClear(int score,int time);
+    GameClear(int _score,int _time);
 
     //デストラクタ
     ~GameClear();

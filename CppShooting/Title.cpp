@@ -2,6 +2,7 @@
 #include"PadInput.h"
 #include"Title.h"
 #include"WeaponPickScene.h"
+#include "DrawRanking.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -79,6 +80,8 @@ SceneBase* Title::Update()
 		case 0:
 			return new WeaponPickScene();
 			break;
+		case 1:
+			return new DrawRanking();
 		case 3:
 			return nullptr;
 			break;

@@ -2,10 +2,12 @@
 #include "PadInput.h"
 #include "GameClear.h"
 #include "Title.h"
+#include "InputRankingScene.h"
 
-GameClear::GameClear(int score, int time)
+GameClear::GameClear(int _score, int _time)
 {
-
+	score = _score;
+	time = _time;
 }
 
 GameClear::~GameClear()
@@ -17,7 +19,7 @@ SceneBase* GameClear::Update()
 {
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 	{
-
+		return new InputRankingScene(score);
 	}
 	return this;
 }
